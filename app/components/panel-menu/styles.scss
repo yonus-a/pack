@@ -1,0 +1,16 @@
+.main-nav {
+  .menubar {
+    background-color: #eee;
+    align-content: start;
+    height: 100vh;
+
+    a {
+      padding: 0.9em 2em;
+      display: block;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}

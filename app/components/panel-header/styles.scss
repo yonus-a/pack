@@ -1,0 +1,21 @@
+@use "@/styles/mixins.scss" as *;
+
+.panel-header {
+  background-color: var(--clr-primary);
+  @include size(100%, 70px);
+  @include flex-align-center;
+
+  .dialog-cta {
+    @include icon-size(40px);
+
+    svg {
+      fill: var(--clr-white);
+    }
+  }
+
+  .dialog {
+    right: 0;
+    position: fixed;
+    width: 60%;
+  }
+}

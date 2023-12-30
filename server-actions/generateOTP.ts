@@ -20,8 +20,6 @@ export default async function generateOTP(idcard: string) {
       // send otp sms
       const res = await sendOTP(phone, otp);
 
-      console.log(res);
-
       // delete all otp for user
       await prisma.otp.deleteMany({
         where: {

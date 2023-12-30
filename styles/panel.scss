@@ -1,0 +1,14 @@
+@use "@/styles/mixins.scss" as *;
+
+.panel {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+
+  .content {
+    background-color: red;
+  }
+
+  @include on-mobile {
+    grid-template-columns: 1fr;
+  }
+}

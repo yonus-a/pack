@@ -20,8 +20,8 @@ export default function Signin() {
     setFormState({ ...formState, [target.name]: target.value });
   };
 
-  const handleSignin = () => {
-    signIn("credentials", formState);
+  const handleSignin = async () => {
+    await signIn("credentials", { callbackUrl: "/panel", ...formState });
   };
 
   // const validate = () => {
