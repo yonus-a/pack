@@ -1,4 +1,6 @@
+import NextMuiThemeProvider from "./components/next-mui-theme-provider";
 import type { Metadata } from "next";
+import "@/styles/global.scss";
 
 export const metadata: Metadata = {
   title: "پاک",
@@ -11,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="fa" dir="rtl">
+      <NextMuiThemeProvider>
+        <body>{children}</body>
+      </NextMuiThemeProvider>
     </html>
   );
 }

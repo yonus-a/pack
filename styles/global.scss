@@ -1,0 +1,71 @@
+:root {
+  --clr-error: #d32929;
+  --clr-primary: #3559e0;
+  --clr-white: #ffffff;
+  --clr-black-text: #555;
+  --clr-gray: #eee;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("/fonts/IRANSans_Medium.woff2") format("woff2"),
+    url("/fonts/IRANSans_Medium.woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "myFont";
+  src: url("/fonts/iranyekan-400.woff2") format("woff2"),
+    url("/fonts/iranyekan-400.woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "myFont";
+  src: url("/fonts/iranyekan-500.woff2") format("woff2"),
+    url("/fonts/iranyekan-500.woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "myFont";
+  src: url("/fonts/iranyekan-700.woff2") format("woff2"),
+    url("/fonts/iranyekan-700.woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "myFont";
+  src: url("/fonts/Roboto-Regular.woff2") format("woff2"),
+    url("/fonts/Roboto-Regular.woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "IranSans";
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+a {
+  color: var(--clr-black-text);
+  text-decoration: none;
+}

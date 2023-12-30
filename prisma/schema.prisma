@@ -13,3 +13,8 @@ model user {
   lastname  String
   phone     String
 }
+
+model otp {
+  id  String @id
+  otp String
+}

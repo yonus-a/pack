@@ -1,0 +1,42 @@
+@use "@/styles/mixins.scss" as *;
+
+.signin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+
+  .image-section {
+    background-image: url("/images/auth/signin-image.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .form-section {
+    @include flex-center;
+
+    .box {
+      text-align: center;
+
+      img {
+        margin-bottom: 2em;
+      }
+
+      .form {
+        width: fit-content;
+        @include grid-gap(1em);
+
+        .input-group {
+          @include flex-gap(1em);
+        }
+
+        .input {
+          width: 50ch;
+        }
+
+        // for put box center
+        padding-bottom: 6em;
+      }
+    }
+  }
+}
