@@ -1,0 +1,13 @@
+.next-text-fild {
+  p.error {
+    font-size: 14px;
+    margin-top: 1em;
+    color: var(--clr-error);
+  }
+
+  &.invalid {
+    input {
+      border: 1px solid var(--clr-error);
+    }
+  }
+}

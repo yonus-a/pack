@@ -4,8 +4,8 @@
   display: grid;
   grid-template-columns: 0.2fr 1fr;
 
-  .content {
-    background-color: red;
+  .panel-body {
+    padding: 4em 0;
   }
 
   @include on-mobile {

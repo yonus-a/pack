@@ -22,7 +22,7 @@ export default async function PanelLayout({ children }: Props) {
       <MobileOnly>
         <PanelHeader />
       </MobileOnly>
-      <div>{children}</div>
+      <div className="panel-body">{children}</div>
     </main>
   );
 }

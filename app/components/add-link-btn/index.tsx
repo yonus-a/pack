@@ -2,11 +2,11 @@ import Link from "next/link";
 import "./styles.scss";
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
   href: any;
 }
 
-export default function AddLink({ href, children }: Props) {
+export default function AddLinkBtn({ href, children }: Props) {
   return (
     <Link className="add-link" href={href}>
       {children}
