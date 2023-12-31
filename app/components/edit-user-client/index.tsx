@@ -1,6 +1,5 @@
 "use client";
 
-import addUser from "@/server-actions/addUser";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import UserInputs from "../user-inputs";
@@ -12,6 +11,7 @@ import "./styles.scss";
 interface Props {
   permissions: any;
   branches: any;
+  user: any;
 }
 
 const requireFilds = {
@@ -23,7 +23,7 @@ const requireFilds = {
   phone: true,
 };
 
-export default function AddUserClient({ branches, permissions }: Props) {
+export default function EditUserClient({ branches, user, permissions }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
@@ -38,11 +38,11 @@ export default function AddUserClient({ branches, permissions }: Props) {
     try {
       setLoading(true);
 
-      await addUser(data);
+      // TODO
 
       setAlert({
         type: "success",
-        msg: "کاربر با موفقیت ایجاد شد",
+        msg: "کاربر با موفقیت ویرایش شد",
       });
 
       setTimeout(() => {
@@ -61,16 +61,17 @@ export default function AddUserClient({ branches, permissions }: Props) {
   };
 
   return (
-    <section className="add-user-client">
+    <section className="edit-user-client">
       {alert && <Alert {...alert} />}
-      <h2>اضافه کردن کاربر</h2>
+      <h2>ویرایش کردن کاربر</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UserInputs
           register={register}
           errors={errors}
           requireFilds={requireFilds}
-          branches={branches}
           permissions={permissions}
+          branches={branches}
+          defaultValues={user}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}

@@ -17,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <NextMuiThemeProvider>
-        <body>{children}</body>
-        <SvgSprite />
+        <body>
+          {children}
+          <SvgSprite />
+        </body>
       </NextMuiThemeProvider>
     </html>
   );

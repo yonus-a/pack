@@ -1,7 +1,6 @@
 "use client";
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
-import deleteBranches from "@/server-actions/deleteBranches";
 import DeleteWithConform from "../delete-with-conform";
 import useSelectAll from "@/hooks/useSelectAll";
 import SearchFilter from "../search-filter";
@@ -12,19 +11,18 @@ import { useState } from "react";
 import "./styles.scss";
 
 interface Props {
-  branches: any;
+  users: any;
 }
 
-export default function BranchesManagmentClient({ branches }: Props) {
+export default function UsersManagmentClient({ users }: Props) {
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
 
   const { isCheck, isCheckAll, handleSelect, handleSelectAll } =
-    useSelectAll(branches);
+    useSelectAll(users);
 
   const handleDelete = async (ids: any) => {
     try {
-      await deleteBranches(ids);
       router.refresh();
     } catch (e) {
       setAlert({
@@ -35,7 +33,7 @@ export default function BranchesManagmentClient({ branches }: Props) {
   };
 
   return (
-    <section className="branches-managment-client">
+    <section className="users-managment-client">
       <div className="g1">
         <SearchFilter />
         <Confirm
@@ -58,16 +56,16 @@ export default function BranchesManagmentClient({ branches }: Props) {
             </Th>
             <Th>ردیف</Th>
             <Th>نام</Th>
-            <Th>استان</Th>
-            <Th>شهر</Th>
-            <Th>آدرس</Th>
-            <Th>فاصله تا انبار مرکزی</Th>
-            <Th>فاصله تا کارخانه</Th>
+            <Th>فامیل</Th>
+            <Th>کدملی</Th>
+            <Th>سطح دسترسی</Th>
+            <Th>شماره تماس</Th>
+            <Th>شعبه</Th>
             <Th>عملیات ها</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {branches?.map((item: any, idx: number) => {
+          {users?.map((item: any, idx: number) => {
             return (
               <Tr key={item?.id}>
                 <Td>
@@ -75,19 +73,19 @@ export default function BranchesManagmentClient({ branches }: Props) {
                     type="checkbox"
                     id={item.id}
                     onClick={handleSelect}
-                    checked={isCheck.includes(item.id)}
+                    checked={isCheck.includes(+item.id)}
                   />
                 </Td>
                 <Td>{idx + 1}</Td>
-                <Td>{item.name}</Td>
-                <Td>{item.province}</Td>
-                <Td>{item.city}</Td>
-                <Td>{item.address}</Td>
-                <Td>{item.distance_to_central_warehouse}</Td>
-                <Td>{item.distance_to_factory}</Td>
+                <Td>{item.firstname}</Td>
+                <Td>{item.lastname}</Td>
+                <Td>{item.id}</Td>
+                <Td>{item.permissions?.name}</Td>
+                <Td>{item.phone}</Td>
+                <Td>{item.branch?.name}</Td>
                 <Td className="g1">
                   <DeleteWithConform onOk={() => handleDelete([item.id])} />
-                  <EditLinkBtn href={`/panel/edit-branch/${item.id}`} />
+                  <EditLinkBtn href={`/panel/edit-user/${item.id}`} />
                 </Td>
               </Tr>
             );

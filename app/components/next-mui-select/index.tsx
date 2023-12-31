@@ -28,9 +28,10 @@ export default function NextMuiSelect({
 }: Props) {
   let options;
   const error = errors[name];
+  const validate = required ? { validate: (val: any) => !!val } : {};
 
   if (register) {
-    options = register(name, { required });
+    options = register(name, validate);
   } else {
     options = { value, onChange };
   }
@@ -40,10 +41,9 @@ export default function NextMuiSelect({
       <InputLabel id="next-mui-select-label">{label}</InputLabel>
       <Select
         className={`select ${error ? "invalid" : ""}`}
+        labelId="next-mui-select-label"
         defaultValue={defaultValue}
         multiple={multiple}
-        onChange={onChange}
-        labelId="next-mui-select-label"
         label={label}
         {...options}
       >

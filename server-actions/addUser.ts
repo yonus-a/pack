@@ -1,19 +1,17 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import getHashedPermission from "./getHashedPermission";
 
 export default async function addUser(data: any) {
-  const hashedPermission: any = await getHashedPermission(+data.permission);
-
   try {
     return await prisma.user.create({
       data: {
+        permission: data.permission,
         firstname: data.firstname,
         lastname: data.lastname,
+        branchId: +data.branch,
         phone: data.phone,
         id: data.idcard,
-        permission: hashedPermission,
       },
     });
   } catch (e: any) {
