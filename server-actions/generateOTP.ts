@@ -14,11 +14,12 @@ export default async function generateOTP(idcard: string) {
     });
 
     if (mabyUser) {
-      const otp = crypto.randomInt(11, 99).toString();
+      // const otp = crypto.randomInt(11, 99).toString();
+      const otp = "10";
       const phone = mabyUser.phone;
 
       // send otp sms
-      const res = await sendOTP(phone, otp);
+      // const res = await sendOTP(phone, otp);
 
       // delete all otp for user
       await prisma.otp.deleteMany({

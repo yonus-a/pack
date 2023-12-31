@@ -1,0 +1,35 @@
+@use "@/styles/mixins.scss" as *;
+
+.alert {
+  @include position-center;
+  background-color: white;
+  padding: 3em 4em;
+  border-radius: 3em;
+  box-shadow:
+    0 0 10px 0 rgba($color: #000000, $alpha: 0.3),
+    0 0 0 100vh rgba($color: #000000, $alpha: 0.1);
+  z-index: var(--alert-zIndex);
+  display: grid;
+  justify-items: center;
+  width: 450px;
+
+  p {
+    text-align: center;
+  }
+
+  &__success {
+    .animation {
+      @include size(250px);
+    }
+
+    p {
+      margin-top: 1em;
+    }
+  }
+
+  &__error {
+    .animation {
+      @include size(250px);
+    }
+  }
+}

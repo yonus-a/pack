@@ -7,6 +7,6 @@ export const links = [
   {
     id: 2,
     name: "مدریت شعب",
-    href: "/panel/-managment",
+    href: "/panel/branches-managment",
   },
 ];

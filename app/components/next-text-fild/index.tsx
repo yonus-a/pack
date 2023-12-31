@@ -8,6 +8,7 @@ interface Props {
   type?: string;
   label: string;
   required?: boolean;
+  defaultValue?: any;
 }
 
 export default function NextTextFild({
@@ -17,11 +18,17 @@ export default function NextTextFild({
   type = "text",
   label,
   required,
+  defaultValue,
 }: Props) {
   const error = errors[name];
   return (
     <FormGroup className={`next-text-fild ${error ? "invalid" : ""}`}>
-      <TextField label={label} {...register(name, { required })} type={type} />
+      <TextField
+        label={label}
+        {...register(name, { required })}
+        defaultValue={defaultValue}
+        type={type}
+      />
       {error && <p className="error">{label} نمیتواند خالی باشد</p>}
     </FormGroup>
   );

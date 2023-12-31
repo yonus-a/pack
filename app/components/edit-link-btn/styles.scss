@@ -1,0 +1,6 @@
+@use "@/styles/mixins.scss" as *;
+
+.edit-link {
+  display: flex;
+  @include icon-size(30px);
+}

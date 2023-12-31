@@ -1,0 +1,10 @@
+@use "@/styles/mixins.scss" as *;
+
+.filter-posts {
+  @include flex-align-center;
+  gap: 1em;
+
+  .next-select {
+    min-width: 25ch;
+  }
+}

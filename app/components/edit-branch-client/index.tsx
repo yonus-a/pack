@@ -1,0 +1,79 @@
+"use client";
+
+import BranchInputs from "@/app/components/branch-inputs";
+import PriamryBtn from "@/app/components/primary-btn";
+import editBranch from "@/server-actions/editBranch";
+import { useRouter } from "next/navigation";
+import Alert from "@/app/components/alert";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import "./styles.scss";
+
+interface Props {
+  branch: any;
+}
+
+const requireFilds = {
+  name: true,
+  province: true,
+  city: true,
+  address: true,
+  distanceToCentralWarehouse: true,
+  distanceToFactory: true,
+};
+
+export default function EditBranchClient({ branch }: Props) {
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState<any>(null);
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      setLoading(true);
+
+      await editBranch(branch.id, data);
+
+      setAlert({
+        type: "success",
+        msg: "",
+      });
+
+      setTimeout(() => {
+        router.refresh();
+        router.push("/panel/branches-managment");
+      }, 1850);
+    } catch (e) {
+      setAlert({
+        type: "error",
+        msg: "مشکلی پیش آمده لطفا مجددا تلاش کنید !",
+      });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setAlert(null), 1800);
+    }
+  };
+
+  return (
+    <section className="edit-branch-client">
+      {alert && <Alert {...alert} />}
+      <h2>ویرایش کردن شعبه</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <BranchInputs
+          register={register}
+          requireFilds={requireFilds}
+          errors={errors}
+          defaultValues={branch}
+        />
+        <PriamryBtn type="submit">
+          {loading ? "در حال پردازش..." : "ثبت"}
+        </PriamryBtn>
+      </form>
+    </section>
+  );
+}

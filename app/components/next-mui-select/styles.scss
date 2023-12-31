@@ -1,0 +1,5 @@
+.select {
+  &.invalid {
+    border: 1px solid var(--clr-error);
+  }
+}

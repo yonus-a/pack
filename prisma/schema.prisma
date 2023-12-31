@@ -19,3 +19,13 @@ model otp {
   id  String @id
   otp String
 }
+
+model branch {
+  id                            Int    @id @default(autoincrement())
+  name                          String
+  province                      String
+  city                          String
+  address                       String
+  distance_to_central_warehouse String
+  distance_to_factory           String
+}
