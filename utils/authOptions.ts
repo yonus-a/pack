@@ -27,7 +27,7 @@ const authOptions: NextAuthOptions = {
         });
 
         if (!savedOTP) {
-          throw new Error("مشکلی پیش آمده لطفا مجددا تلاش کنید");
+          throw new Error("مشکلی در ارسال پیامک پیش آمده لطفا مجددا تلاش کنید");
         }
 
         // compear otp
@@ -44,10 +44,28 @@ const authOptions: NextAuthOptions = {
           },
         });
 
-        return {};
+        // get user
+        const user = await prisma.user.findFirst({
+          where: {
+            id: idcard,
+          },
+        });
+
+        return { permission: user?.permission, id: user?.id };
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }: any) => {
+      session.user.permission = token.user.permission;
+      session.user.id = token.user.id;
+      return session;
+    },
+  },
   session: {
     strategy: "jwt",
   },

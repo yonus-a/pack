@@ -1,0 +1,11 @@
+@use "@/styles/mixins.scss" as *;
+
+.edit-product-client {
+  h2 {
+    margin-bottom: 2em;
+  }
+
+  form {
+    @include grid-gap(1.2em);
+  }
+}

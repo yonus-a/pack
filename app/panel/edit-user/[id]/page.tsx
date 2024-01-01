@@ -2,12 +2,19 @@ import EditUserClient from "@/app/components/edit-user-client";
 import getPermissions from "@/server-actions/getPermissions";
 import getBranches from "@/server-actions/getBranches";
 import getUserById from "@/server-actions/getUserById";
+import { isAdmin } from "@/server-actions/permissions";
 import Container from "@/app/components/container";
 import { notFound } from "next/navigation";
 
 export default async function EditUser({ params }: any) {
-  const id = params.id;
+  // check permission
+  const admin = await isAdmin();
 
+  if (!admin) {
+    return notFound();
+  }
+
+  const id = params.id;
   const permissions = await getPermissions();
   const branches = await getBranches();
   const user = await getUserById(id);

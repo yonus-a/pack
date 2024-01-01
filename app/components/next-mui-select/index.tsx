@@ -37,7 +37,7 @@ export default function NextMuiSelect({
   }
 
   return (
-    <FormControl>
+    <FormControl className="next-mui-select">
       <InputLabel id="next-mui-select-label">{label}</InputLabel>
       <Select
         className={`select ${error ? "invalid" : ""}`}

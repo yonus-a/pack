@@ -4,6 +4,10 @@
   --clr-white: #ffffff;
   --clr-black-text: #555;
   --clr-gray: #eee;
+
+  // zIndex
+  --dialog-layer-zIndex: 99999999;
+  --alert-zIndex: 999999999;
 }
 
 @font-face {

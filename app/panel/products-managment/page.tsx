@@ -1,12 +1,12 @@
-import UsersManagmentClient from "@/app/components/user-managment-client";
+import ProductsManagmentClient from "@/app/components/products-managment-client";
 import NextTablePagination from "@/app/components/next-table-pagination";
-import AddLinkBtn from "@/app/components/add-link-btn";
-import filterUsers from "@/server-actions/filterUsers";
+import filterProducts from "@/server-actions/product/filterProducts";
 import { isAdmin } from "@/server-actions/permissions";
+import AddLinkBtn from "@/app/components/add-link-btn";
 import Container from "@/app/components/container";
 import { notFound } from "next/navigation";
 
-export default async function UsersManagment({ searchParams }: any) {
+export default async function ProductsManagment({ searchParams }: any) {
   // check permission
   const admin = await isAdmin();
 
@@ -17,7 +17,7 @@ export default async function UsersManagment({ searchParams }: any) {
   const take = +searchParams.take || 20;
   const page = +searchParams.page || 0;
 
-  const { users, countUsers } = await filterUsers({
+  const { products, countProducts } = await filterProducts({
     searchParams,
     page,
     take,
@@ -26,13 +26,13 @@ export default async function UsersManagment({ searchParams }: any) {
   return (
     <main>
       <Container>
-        <AddLinkBtn href={"/panel/add-user"}>اضافه کردن</AddLinkBtn>
-        <UsersManagmentClient users={users} />
+        <AddLinkBtn href={"/panel/add-product"}>اضافه کردن</AddLinkBtn>
+        <ProductsManagmentClient prodcuts={products} />
         <NextTablePagination
-          url={"/panel/users-managment"}
-          total={countUsers}
+          total={10}
           page={page}
           take={take}
+          url={"/panel/users-managment"}
         />
       </Container>
     </main>

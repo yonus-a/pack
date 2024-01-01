@@ -1,7 +1,6 @@
 "use client";
 
-import addBranch from "@/server-actions/addBranch";
-import AddBranchInputs from "../branch-inputs";
+import ProductInputs from "../product-inputs";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import PriamryBtn from "../primary-btn";
@@ -9,16 +8,27 @@ import { useState } from "react";
 import Alert from "../alert";
 import "./styles.scss";
 
+interface Props {
+  categories: any;
+  product: any;
+  units: any;
+  types: any;
+}
+
 const requireFilds = {
+  category: true,
+  unit: true,
   name: true,
-  province: true,
-  city: true,
-  address: true,
-  distanceToCentralWarehouse: true,
-  distanceToFactory: true,
+  type: true,
+  id: true,
 };
 
-export default function AddBranchClient() {
+export default function EditProductClient({
+  categories,
+  units,
+  types,
+  product,
+}: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
@@ -33,16 +43,16 @@ export default function AddBranchClient() {
     try {
       setLoading(true);
 
-      await addBranch(data);
+      // TODO
 
       setAlert({
         type: "success",
-        msg: "",
+        msg: "محصول با موفقیت ویرایش شد",
       });
 
       setTimeout(() => {
         router.refresh();
-        router.push("/panel/branches-managment");
+        router.push("/panel/products-managment");
       }, 1850);
     } catch (e) {
       setAlert({
@@ -55,15 +65,21 @@ export default function AddBranchClient() {
     }
   };
 
+  console.log(product);
+
   return (
-    <section className="add-branch-client">
+    <section className="edit-product-client">
       {alert && <Alert {...alert} />}
-      <h2>اضافه کردن شعبه</h2>
+      <h2>ویرایش محصول</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <AddBranchInputs
-          register={register}
+        <ProductInputs
           requireFilds={requireFilds}
+          categories={categories}
+          defaultValues={product}
+          register={register}
           errors={errors}
+          units={units}
+          types={types}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}

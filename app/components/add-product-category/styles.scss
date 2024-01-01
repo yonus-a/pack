@@ -1,0 +1,18 @@
+@use "@/styles/mixins.scss" as *;
+
+.add-product-category {
+  .dialog-cta {
+    @include icon-size(30px);
+  }
+
+  .form {
+    @include grid-gap(1.5em);
+    background-color: white;
+    border-radius: 10px;
+    padding: 2em;
+
+    input {
+      width: 38ch;
+    }
+  }
+}

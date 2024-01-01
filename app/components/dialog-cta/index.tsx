@@ -8,7 +8,6 @@ interface Props {
   onClick?: () => void;
   className?: string;
   clicked?: boolean;
-  type?: string;
   disabled?: any;
 }
 
@@ -16,7 +15,6 @@ export default function DialogCta({
   className,
   children,
   onClick,
-  type,
   clicked,
   disabled,
 }: Props) {
@@ -33,7 +31,7 @@ export default function DialogCta({
 
   return (
     <button
-      type={type as any}
+      type="button"
       className={`dialog-cta ${className}`}
       onClick={handleClick}
       disabled={disabled}

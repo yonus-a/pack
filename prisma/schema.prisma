@@ -42,3 +42,37 @@ model permissions {
   name String
   user user[]
 }
+
+model product {
+  id               String           @id
+  name             String
+  categoryId       Int
+  unitId           Int
+  typeId           Int
+  product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
+  product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
+  product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
+
+  @@index([categoryId], map: "FK_product_category")
+  @@index([typeId], map: "FK_product_type")
+  @@index([unitId], map: "FK_product_unit")
+}
+
+model product_category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product product[]
+}
+
+model product_type {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product product[]
+}
+
+model product_unit {
+  id      Int       @id @default(autoincrement())
+  name    String
+  unit    Int
+  product product[]
+}

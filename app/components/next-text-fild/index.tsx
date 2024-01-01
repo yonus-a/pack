@@ -2,31 +2,43 @@ import { FormGroup, TextField } from "@mui/material";
 import "./styles.scss";
 
 interface Props {
-  register: any;
-  name: any;
-  errors: any;
-  type?: string;
-  label: string;
   required?: boolean;
   defaultValue?: any;
+  register?: any;
+  type?: string;
+  label: string;
+  onChange?: any;
+  errors?: any;
+  value?: any;
+  name: any;
 }
 
 export default function NextTextFild({
-  register,
-  name,
-  errors,
-  type = "text",
-  label,
-  required,
   defaultValue,
+  type = "text",
+  register,
+  required,
+  onChange,
+  errors = {},
+  value,
+  name,
+  label,
 }: Props) {
   const error = errors[name];
+  let options;
+
+  if (register) {
+    options = register(name, required);
+  } else {
+    options = { value, onChange, name };
+  }
+
   return (
     <FormGroup className={`next-text-fild ${error ? "invalid" : ""}`}>
       <TextField
-        label={label}
-        {...register(name, { required })}
         defaultValue={defaultValue}
+        label={label}
+        {...options}
         type={type}
       />
       {error && <p className="error">{label} نمیتواند خالی باشد</p>}

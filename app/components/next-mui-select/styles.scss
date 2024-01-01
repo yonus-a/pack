@@ -1,5 +1,7 @@
-.select {
-  &.invalid {
+.next-mui-select {
+  width: 100%;
+
+  .invalid {
     border: 1px solid var(--clr-error);
   }
 }
