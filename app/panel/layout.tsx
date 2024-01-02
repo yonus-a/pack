@@ -2,11 +2,11 @@ import {
   generateClientPermission,
   isRegister,
 } from "@/server-actions/permissions";
-import PanelHeader from "../components/panel-header";
-import MobileOnly from "../components/mobile-only";
-import PanelMenu from "../components/panel-menu";
+import PanelHeader from "../components/panel/panel-header";
+import MobileOnly from "../components/general/mobile-only";
+import PanelMenu from "../components/panel/panel-menu";
+import PcOnly from "../components/general/pc-only";
 import { notFound } from "next/navigation";
-import PcOnly from "../components/pc-only";
 import "@/styles/panel.scss";
 
 interface Props {
@@ -29,7 +29,7 @@ export default async function PanelLayout({ children }: Props) {
         <PanelMenu clientPermission={clientPermission} />
       </PcOnly>
       <MobileOnly>
-        <PanelHeader />
+        <PanelHeader clientPermission={clientPermission} />
       </MobileOnly>
       <div className="panel-body">{children}</div>
     </main>

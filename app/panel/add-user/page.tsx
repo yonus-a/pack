@@ -1,8 +1,8 @@
-import AddUserClient from "@/app/components/add-user-client";
+import AddUserClient from "@/app/components/user/add-user-client";
 import getPermissions from "@/server-actions/getPermissions";
 import getBranches from "@/server-actions/getBranches";
 import { isAdmin } from "@/server-actions/permissions";
-import Container from "@/app/components/container";
+import Container from "@/app/components/general/container";
 import { notFound } from "next/navigation";
 
 export default async function AddUser() {

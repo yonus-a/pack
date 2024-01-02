@@ -1,0 +1,74 @@
+"use client";
+
+import addBranch from "@/server-actions/addBranch";
+import PriamryBtn from "../../general/primary-btn";
+import AddBranchInputs from "../branch-inputs";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import Alert from "../../general/alert";
+import { useState } from "react";
+import "./styles.scss";
+
+const requireFilds = {
+  name: true,
+  province: true,
+  city: true,
+  address: true,
+  distanceToCentralWarehouse: true,
+  distanceToFactory: true,
+};
+
+export default function AddBranchClient() {
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState<any>(null);
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      setLoading(true);
+
+      await addBranch(data);
+
+      setAlert({
+        type: "success",
+        msg: "",
+      });
+
+      setTimeout(() => {
+        router.refresh();
+        router.push("/panel/branches-managment");
+      }, 1850);
+    } catch (e) {
+      setAlert({
+        type: "error",
+        msg: "مشکلی پیش آمده لطفا مجددا تلاش کنید !",
+      });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setAlert(null), 1800);
+    }
+  };
+
+  return (
+    <section className="add-branch-client">
+      {alert && <Alert {...alert} />}
+      <h2>اضافه کردن شعبه</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <AddBranchInputs
+          register={register}
+          requireFilds={requireFilds}
+          errors={errors}
+        />
+        <PriamryBtn type="submit">
+          {loading ? "در حال پردازش..." : "ثبت"}
+        </PriamryBtn>
+      </form>
+    </section>
+  );
+}

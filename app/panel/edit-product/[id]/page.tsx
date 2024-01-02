@@ -1,10 +1,10 @@
 import getProductCategories from "@/server-actions/product/getProductCategories";
+import EditProductClient from "@/app/components/product/edit-product-client";
 import getProductUnits from "@/server-actions/product/getProductUnits";
 import getProductTypes from "@/server-actions/product/getProductTypes";
-import EditProductClient from "@/app/components/edit-product-client";
 import getProduct from "@/server-actions/product/getProductById";
+import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
-import Container from "@/app/components/container";
 import { notFound } from "next/navigation";
 
 export default async function EditProduct({ params }: any) {

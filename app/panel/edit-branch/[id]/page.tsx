@@ -1,7 +1,7 @@
-import EditBranchClient from "@/app/components/edit-branch-client";
+import EditBranchClient from "@/app/components/branch/edit-branch-client";
 import getBranchById from "@/server-actions/getBranchById";
+import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
-import Container from "@/app/components/container";
 import { notFound } from "next/navigation";
 
 export default async function EditBranch({ params }: any) {

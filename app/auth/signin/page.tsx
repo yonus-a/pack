@@ -1,9 +1,9 @@
 "use client";
 
-import PriamryBtn from "@/app/components/primary-btn";
-import ErrorMsg from "@/app/components/error-msg";
+import PriamryBtn from "@/app/components/general/primary-btn";
+import ErrorMsg from "@/app/components/general/error-msg";
+import SendOTP from "@/app/components/auth/send-otp";
 import { TextField, Button } from "@mui/material";
-import SendOTP from "@/app/components/send-otp";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Image from "next/image";

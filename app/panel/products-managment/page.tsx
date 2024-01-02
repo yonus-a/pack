@@ -1,9 +1,9 @@
-import ProductsManagmentClient from "@/app/components/products-managment-client";
-import NextTablePagination from "@/app/components/next-table-pagination";
+import ProductsManagmentClient from "@/app/components/product/products-managment-client";
+import NextTablePagination from "@/app/components/general/next-table-pagination";
 import filterProducts from "@/server-actions/product/filterProducts";
+import AddLinkBtn from "@/app/components/general/add-link-btn";
+import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
-import AddLinkBtn from "@/app/components/add-link-btn";
-import Container from "@/app/components/container";
 import { notFound } from "next/navigation";
 
 export default async function ProductsManagment({ searchParams }: any) {
