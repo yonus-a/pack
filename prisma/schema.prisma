@@ -76,3 +76,13 @@ model product_unit {
   unit    Int
   product product[]
 }
+
+model notification {
+  id        Int      @id @default(autoincrement())
+  title     String
+  msg       String
+  private   Int      @default(0)
+  createdAt DateTime @db.DateTime(0)
+  seen      Int      @default(0)
+  sendSms   Int      @default(0)
+}

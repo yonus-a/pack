@@ -21,6 +21,12 @@ export const links = [
   },
   {
     id: 4,
+    name: "مدریت اعلانات",
+    href: "/panel/notification-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 5,
     name: "کاربر",
     href: "/panel/users-managment",
     permissions: [USER_KEY],

@@ -1,0 +1,7 @@
+.next-textarea {
+  &.invalid {
+    input {
+      border: 1px solid var(--clr-error);
+    }
+  }
+}

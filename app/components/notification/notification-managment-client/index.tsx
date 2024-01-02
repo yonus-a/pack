@@ -2,28 +2,28 @@
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import DeleteWithConform from "../../general/delete-with-conform";
-import deleteBranches from "@/server-actions/deleteBranches";
 import SearchFilter from "../../general/search-filter";
 import EditLinkBtn from "../../general/edit-link-btn";
 import useSelectAll from "@/hooks/useSelectAll";
 import { useRouter } from "next/navigation";
 import Confirm from "../../general/confirm";
 import { useState } from "react";
+import "./styles.scss";
 
 interface Props {
-  branches: any;
+  notifs: any;
 }
 
-export default function BranchesManagmentClient({ branches }: Props) {
+export default function NotificationManagmentClient({ notifs }: Props) {
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
 
   const { isCheck, isCheckAll, handleSelect, handleSelectAll } =
-    useSelectAll(branches);
+    useSelectAll(notifs);
 
   const handleDelete = async (ids: any) => {
     try {
-      await deleteBranches(ids);
+      // todo
       router.refresh();
     } catch (e) {
       setAlert({
@@ -34,7 +34,7 @@ export default function BranchesManagmentClient({ branches }: Props) {
   };
 
   return (
-    <section className="branches-managment-client">
+    <section className="announcment-managment-client">
       <div className="g1">
         <SearchFilter />
         <Confirm
@@ -56,17 +56,11 @@ export default function BranchesManagmentClient({ branches }: Props) {
               />
             </Th>
             <Th>ردیف</Th>
-            <Th>نام</Th>
-            <Th>استان</Th>
-            <Th>شهر</Th>
-            <Th>آدرس</Th>
-            <Th>فاصله تا انبار مرکزی</Th>
-            <Th>فاصله تا کارخانه</Th>
             <Th>عملیات ها</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {branches?.map((item: any, idx: number) => {
+          {notifs?.map((item: any, idx: number) => {
             return (
               <Tr key={item?.id}>
                 <Td>
@@ -78,12 +72,6 @@ export default function BranchesManagmentClient({ branches }: Props) {
                   />
                 </Td>
                 <Td>{idx + 1}</Td>
-                <Td>{item.name}</Td>
-                <Td>{item.province}</Td>
-                <Td>{item.city}</Td>
-                <Td>{item.address}</Td>
-                <Td>{item.distance_to_central_warehouse}</Td>
-                <Td>{item.distance_to_factory}</Td>
                 <Td className="g1">
                   <DeleteWithConform onOk={() => handleDelete([item.id])} />
                   <EditLinkBtn href={`/panel/edit-branch/${item.id}`} />
