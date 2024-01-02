@@ -46,6 +46,12 @@ export default function NextMuiSelect({
         multiple={multiple}
         label={label}
         {...options}
+        sx={{
+          "& .MuiSvgIcon-root": {
+            right: "unset",
+            left: "7px",
+          },
+        }}
       >
         {items.map(({ label, value }: any) => (
           <MenuItem key={value} value={value}>

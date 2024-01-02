@@ -128,3 +128,8 @@ button:disabled {
 label {
   margin-right: 0 !important;
 }
+
+// material ui
+.MuiPickersArrowSwitcher-root {
+  flex-direction: row-reverse;
+}

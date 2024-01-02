@@ -3,30 +3,42 @@ import { ADMIN_KEY, USER_KEY } from "@/utils/clientPermission";
 export const links = [
   {
     id: 1,
-    name: "مدریت کاربران",
-    href: "/panel/users-managment",
-    permissions: [ADMIN_KEY],
-  },
-  {
-    id: 2,
-    name: "مدریت شعب",
+    name: "مدیریت شعب",
     href: "/panel/branches-managment",
     permissions: [ADMIN_KEY],
   },
   {
+    id: 2,
+    name: "مدیریت کاربران",
+    href: "/panel/users-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
     id: 3,
-    name: "مدریت محصولات",
+    name: "مدیریت محصولات",
     href: "/panel/products-managment",
     permissions: [ADMIN_KEY],
   },
   {
     id: 4,
-    name: "مدریت اعلانات",
-    href: "/panel/notification-managment",
+    name: "مدیریت بودجه",
+    href: "/panel/budget-managment",
     permissions: [ADMIN_KEY],
   },
   {
     id: 5,
+    name: "مدیریت موجودی انبار",
+    href: "/panel/warehouse-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 6,
+    name: "مدیریت اعلانات",
+    href: "/panel/notification-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 7,
     name: "کاربر",
     href: "/panel/users-managment",
     permissions: [USER_KEY],
