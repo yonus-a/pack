@@ -23,6 +23,7 @@ export default function AddBudgetClient({ branches }: any) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
 
   const onSubmit = async (data: any) => {
@@ -61,6 +62,7 @@ export default function AddBudgetClient({ branches }: any) {
           requireFilds={requireFilds}
           errors={errors}
           branches={branches}
+          watch={watch}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}
