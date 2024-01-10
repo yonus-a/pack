@@ -1,7 +1,8 @@
-import NextTablePagination from "@/app/components/general/next-table-pagination";
+import BudgetManagmentClient from "@/app/components/budget/budget-managment-client";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
+import getBranches from "@/server-actions/getBranches";
 import { notFound } from "next/navigation";
 
 export default async function BudgetManagment({ searchParams }: any) {
@@ -12,25 +13,13 @@ export default async function BudgetManagment({ searchParams }: any) {
     return notFound();
   }
 
-  const take = +searchParams.take || 20;
-  const page = +searchParams.page || 0;
-
-  // const { branches, countBranches } = await filterBranches({
-  //   searchParams,
-  //   page,
-  //   take,
-  // });
+  const branches = await getBranches();
 
   return (
     <main>
       <Container>
         <AddLinkBtn href={"/panel/add-budget"}>اضافه کردن</AddLinkBtn>
-        <NextTablePagination
-          total={1}
-          page={page}
-          take={take}
-          url={"/panel/users-managment"}
-        />
+        <BudgetManagmentClient branches={branches} />
       </Container>
     </main>
   );

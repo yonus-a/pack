@@ -27,13 +27,14 @@ model otp {
 }
 
 model branch {
-  id                            Int    @id @default(autoincrement())
+  id                            Int      @id @default(autoincrement())
   name                          String
   province                      String
   city                          String
   address                       String
   distance_to_central_warehouse String
   distance_to_factory           String
+  budget                        budget[]
   user                          user[]
 }
 
@@ -49,6 +50,7 @@ model product {
   categoryId       Int
   unitId           Int
   typeId           Int
+  budget           budget[]
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
   product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
   product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
@@ -85,4 +87,30 @@ model notification {
   createdAt DateTime @db.DateTime(0)
   seen      Int      @default(0)
   sendSms   Int      @default(0)
+}
+
+model budget {
+  id        Int       @id @default(autoincrement())
+  branchId  Int
+  productId String
+  date      DateTime  @db.Date
+  year      Int
+  month1    Int
+  month2    Int
+  month3    Int
+  month4    Int
+  month5    Int
+  month6    Int
+  month7    Int
+  month8    Int
+  month9    Int
+  month10   Int
+  month11   Int
+  month12   Int
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  branch    branch    @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_budget_branch")
+  product   product   @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_budget_product")
+
+  @@index([branchId], map: "FK_budget_branch")
+  @@index([productId], map: "FK_budget_product")
 }

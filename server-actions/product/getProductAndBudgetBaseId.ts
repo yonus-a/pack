@@ -2,13 +2,14 @@
 
 import prisma from "@/lib/prisma";
 
-export default async function getProducts() {
+export default async function getProductAndBudgetBaseId(id: string) {
   try {
-    return await prisma.product.findMany({
+    return await prisma.product.findFirst({
+      where: {
+        id,
+      },
       include: {
-        product_category: true,
-        product_type: true,
-        product_unit: true,
+        budget: true,
       },
     });
   } catch (e) {

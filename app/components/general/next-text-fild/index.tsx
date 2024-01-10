@@ -6,11 +6,12 @@ interface Props {
   defaultValue?: any;
   register?: any;
   type?: string;
-  label: string;
+  label?: string;
   onChange?: any;
+  className?: any;
   errors?: any;
   value?: any;
-  name: any;
+  name?: any;
 }
 
 export default function NextTextFild({
@@ -19,10 +20,11 @@ export default function NextTextFild({
   register,
   required,
   onChange,
+  className,
   errors = {},
   value,
-  name,
-  label,
+  name = "",
+  label = "",
 }: Props) {
   const error = errors[name];
   let options;
@@ -37,6 +39,7 @@ export default function NextTextFild({
     <FormGroup className={`next-text-fild ${error ? "invalid" : ""}`}>
       <TextField
         defaultValue={defaultValue}
+        className={className}
         label={label}
         {...options}
         type={type}

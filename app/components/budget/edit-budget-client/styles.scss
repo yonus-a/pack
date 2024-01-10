@@ -1,6 +1,14 @@
 @use "@/styles/mixins.scss" as *;
 
-.add-budget-client {
+.edit-budget-client {
+  .budget-input {
+    width: 10ch;
+
+    input {
+      padding: 0.6em;
+    }
+  }
+
   h2 {
     margin-bottom: 2em;
   }

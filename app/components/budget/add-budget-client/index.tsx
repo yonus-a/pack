@@ -1,5 +1,6 @@
 "use client";
 
+import addBudget from "@/server-actions/budget/addBudget";
 import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
 import BudgetInputs from "../budget-inputs";
@@ -14,7 +15,7 @@ interface Props {
 
 const requireFilds = {};
 
-export default function AddBudgetClient({ branches }: any) {
+export default function AddBudgetClient({ branches }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
@@ -23,14 +24,15 @@ export default function AddBudgetClient({ branches }: any) {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-  } = useForm();
+    setValue,
+  } = useForm({});
 
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
 
       // TODO
+      await addBudget(data);
 
       setAlert({
         type: "success",
@@ -62,7 +64,7 @@ export default function AddBudgetClient({ branches }: any) {
           requireFilds={requireFilds}
           errors={errors}
           branches={branches}
-          watch={watch}
+          setValue={setValue}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}

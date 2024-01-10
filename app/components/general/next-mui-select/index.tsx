@@ -11,7 +11,7 @@ interface Props {
   onChange?: any;
   name?: string;
   required?: boolean;
-  errors: any;
+  errors?: any;
 }
 
 export default function NextMuiSelect({
@@ -24,7 +24,7 @@ export default function NextMuiSelect({
   value,
   onChange,
   required,
-  errors,
+  errors = {},
 }: Props) {
   let options;
   const error = errors[name];
