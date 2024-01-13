@@ -1,39 +1,27 @@
 "use server";
 
-import prisma from "@/lib/prisma";
 import filterProductsBaseSearch from "@/utils/product/filterProductsBaseSearch";
+import filterProductsBaseCategory from "@/utils/product/filterProductBaseCategory";
+import prisma from "@/lib/prisma";
 
-export default async function filterProducts({
-  searchParams,
-  page,
-  take,
-}: any) {
+export default async function getAllProductsBaseFilter(searchParams: any) {
   try {
-    const { search } = searchParams;
+    const { search, category } = searchParams;
 
     const filter = {
       ...filterProductsBaseSearch(search),
+      ...filterProductsBaseCategory(category),
     };
 
-    const products = await prisma.product.findMany({
-      take,
-      skip: page * take,
+    return await prisma.product.findMany({
       where: filter,
       include: {
         product_category: true,
         product_type: true,
         product_unit: true,
+        budget: true,
       },
     });
-
-    const countProducts = await prisma.product.count({
-      where: filter,
-    });
-
-    return {
-      products,
-      countProducts,
-    };
   } catch (e) {
     console.error(e);
     throw new Error("مشکلی در سرور به وجود آمده است !");

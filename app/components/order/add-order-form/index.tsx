@@ -1,0 +1,134 @@
+"use client";
+
+import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
+import PriamryBtn from "../../general/primary-btn";
+import { useRouter } from "next/navigation";
+import { getMonth } from "date-fns-jalali";
+import { TextField } from "@mui/material";
+import Alert from "../../general/alert";
+import { useState } from "react";
+import "./styles.scss";
+import addOrder from "@/server-actions/order/add-order.ts";
+
+interface Props {
+  products: any;
+  stock: any;
+  date: any;
+}
+
+export default function AddOrderForm({ stock, products, date }: Props) {
+  const [formState, setFormState] = useState<any>({});
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState<any>(null);
+  const month = getMonth(date) + 1;
+  const router = useRouter();
+
+  const handleChange = (item: any, { target }: any) => {
+    const factor = +target.value;
+    const totalWeight = factor * item.weight;
+    const number = factor * item.product_unit.unit;
+
+    setFormState({
+      ...formState,
+      [item.id]: {
+        monthlyBudget: +item.monthlyBudget,
+        dailyBudget: +item.dailyBudget,
+        unit: +item.product_unit.unit,
+        weight: item.weight,
+        productId: item.id,
+        stock: +item.stock,
+        totalWeight,
+        number,
+        factor,
+      },
+    });
+  };
+
+  const handleClick = async () => {
+    try {
+      setLoading(true);
+
+      // TODO
+      await addOrder(Object.values(formState));
+
+      setAlert({
+        type: "success",
+        msg: "سفارش شما با موفقیت ثبت شد",
+      });
+
+      setTimeout(() => {
+        // router.refresh();
+        // router.push("");
+      }, 1850);
+    } catch (e) {
+      setAlert({
+        type: "error",
+        msg: "مشکلی پیش آمده لطفا مجددا تلاش کنید !",
+      });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setAlert(null), 1800);
+    }
+  };
+
+  return (
+    <div className="add-order-form">
+      {alert && <Alert {...alert} />}
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>*</Th>
+            <Th>شناسه محصول</Th>
+            <Th>عنوان محصول</Th>
+            <Th>بودجه ماهیانه</Th>
+            <Th>بودجه روز</Th>
+            <Th>موجودی</Th>
+            <Th>وزن</Th>
+            <Th>ضریب</Th>
+            <Th>نوع سنجش</Th>
+            <Th>تعداد</Th>
+            <Th>وزن کل</Th>
+            <Th>پیشنهادی</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {products.map((item: any, idx: number) => {
+            const budget = item.budget[0];
+            const monthlyBudget = budget[`month${month}`];
+            const dailyBudget = Math.floor(monthlyBudget / 24);
+
+            // add more data to item
+            item.monthlyBudget = monthlyBudget;
+            item.dailyBudget = dailyBudget;
+            item.stock = stock.amount;
+
+            return (
+              <Tr>
+                <Td>{idx + 1}</Td>
+                <Td>{item.id}</Td>
+                <Td>{item.name}</Td>
+                <Td>{monthlyBudget}</Td>
+                <Td>{dailyBudget}</Td>
+                <Td>{stock.amount}</Td>
+                <Td>{item.weight}</Td>
+                <Td>
+                  <TextField
+                    type="number"
+                    onChange={(e) => handleChange(item, e)}
+                  />
+                </Td>
+                <Td>{item.product_unit.name}</Td>
+                <Td>{formState[item.id]?.number || 0}</Td>
+                <Td>{formState[item.id]?.totalWeight || 0}</Td>
+                <Td>0</Td>
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+      <PriamryBtn onClick={handleClick} type="button">
+        {loading ? "در حال پردازش..." : "سفارش"}
+      </PriamryBtn>
+    </div>
+  );
+}

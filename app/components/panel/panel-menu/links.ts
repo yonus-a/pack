@@ -33,12 +33,24 @@ export const links = [
   },
   {
     id: 6,
+    name: "سفارش محصول",
+    href: "/panel/order",
+    permissions: [ADMIN_KEY, USER_KEY],
+  },
+  {
+    id: 7,
+    name: "مدریت سفارشات",
+    href: "/panel/order-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 8,
     name: "مدیریت اعلانات",
     href: "/panel/notification-managment",
     permissions: [ADMIN_KEY],
   },
   {
-    id: 7,
+    id: 9,
     name: "کاربر",
     href: "/panel/users-managment",
     permissions: [USER_KEY],

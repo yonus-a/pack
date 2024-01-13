@@ -1,0 +1,13 @@
+@use "@/styles/mixins.scss" as *;
+
+.product-categories-filter {
+  ul {
+    @include flex-align-center;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+
+  .selected {
+    border: 1px solid lightblue;
+  }
+}

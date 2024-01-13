@@ -120,3 +120,16 @@ model stock {
   id     Int    @id @default(autoincrement())
   amount String
 }
+
+model order {
+  id            Int    @id @default(autoincrement())
+  productId     String
+  monthlyBudget Int
+  dailyBudget   Float  @db.Float
+  unit          Int
+  weight        String
+  stock         Int
+  totalWeight   String
+  number        Int
+  factor        Int
+}

@@ -9,6 +9,7 @@ export default async function getProducts() {
         product_category: true,
         product_type: true,
         product_unit: true,
+        budget: true,
       },
     });
   } catch (e) {

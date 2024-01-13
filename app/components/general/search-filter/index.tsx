@@ -9,6 +9,7 @@ export default function SearchFilter() {
   const router = useRouter();
 
   const handleSearch = ({ target }: any) => {
+    params.delete("page");
     params.set("search", target.value);
     push();
   };
