@@ -1,8 +1,8 @@
 "use client";
 
-import addProduct from "@/server-actions/product/addProduct";
+import addStock from "@/server-actions/stock/addStock";
+import NextTextFild from "../../general/next-text-fild";
 import PriamryBtn from "../../general/primary-btn";
-import ProductInputs from "../product-inputs";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Alert from "../../general/alert";
@@ -10,22 +10,10 @@ import { useState } from "react";
 import "./styles.scss";
 
 interface Props {
-  categories: any;
-  units: any;
-  types: any;
+  currentAmount: any;
 }
 
-const requireFilds = {
-  category: true,
-  weight: true,
-  group: true,
-  type: true,
-  unit: true,
-  name: true,
-  id: true,
-};
-
-export default function AddProductClient({ categories, units, types }: Props) {
+export default function AddStockClient({ currentAmount }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
@@ -40,17 +28,15 @@ export default function AddProductClient({ categories, units, types }: Props) {
     try {
       setLoading(true);
 
-      // TODO
-      await addProduct(data);
+      await addStock(data);
 
       setAlert({
         type: "success",
-        msg: "محصول با موفقیت ساخته شد",
+        msg: "موجودی با موفقیت ثبت شد",
       });
 
       setTimeout(() => {
         router.refresh();
-        router.push("/panel/products-managment");
       }, 1850);
     } catch (e) {
       setAlert({
@@ -64,22 +50,22 @@ export default function AddProductClient({ categories, units, types }: Props) {
   };
 
   return (
-    <section className="add-product-client">
+    <div className="add-stock-client">
+      <h1>مدریت موجودی انبار</h1>
+      <h2>موجودی فعلی {currentAmount}</h2>
       {alert && <Alert {...alert} />}
-      <h2>اضافه کردن محصول</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ProductInputs
-          requireFilds={requireFilds}
-          categories={categories}
+        <NextTextFild
           register={register}
           errors={errors}
-          units={units}
-          types={types}
+          name="amount"
+          label="موجودی"
+          type="number"
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>
-    </section>
+    </div>
   );
 }

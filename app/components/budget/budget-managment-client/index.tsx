@@ -3,6 +3,8 @@
 import getProductsBaseBudgetFilter from "@/server-actions/product/getProductsBaseBudgetFilter";
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import selectOptionsGenerator from "@/utils/selectOptionsGenerator";
+import DeleteWithConform from "../../general/delete-with-conform";
+import deleteBudget from "@/server-actions/budget/deleteBudget";
 import NextDatePicker from "../../general/next-date-picker";
 import NextMuiSelect from "../../general/next-mui-select";
 import EqualizeItems from "../../general/equalize-items";
@@ -25,13 +27,19 @@ export default function BudgetInputs({ branches }: Props) {
         branchId: selectedBranch,
         date,
       });
+
       setProduct(products);
-      console.log(products);
     } catch (e) {}
   };
 
   const handleBranchChnage = ({ target }: any) => {
     setSelectedBranch(target.value);
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteBudget(id);
+    } catch (e) {}
   };
 
   return (
@@ -94,6 +102,7 @@ export default function BudgetInputs({ branches }: Props) {
                 <Td>{budget.month12}</Td>
                 <Td>
                   <EditLinkBtn href={`/panel/edit-budget/${item.id}`} />
+                  <DeleteWithConform onOk={() => handleDelete(item.id)} />
                 </Td>
               </Tr>
             );

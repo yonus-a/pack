@@ -30,14 +30,25 @@ export default function ProductInputs({
 
   return (
     <>
-      <NextTextFild
-        defaultValue={defaultValues.name}
-        required={requireFilds.name}
-        register={register}
-        errors={errors}
-        label="نام"
-        name="name"
-      />
+      <EqualizeItems>
+        <NextTextFild
+          defaultValue={defaultValues.name}
+          required={requireFilds.name}
+          register={register}
+          errors={errors}
+          label="نام"
+          name="name"
+        />
+        <NextTextFild
+          defaultValue={defaultValues.weight}
+          required={requireFilds.weight}
+          register={register}
+          errors={errors}
+          type="number"
+          name="weight"
+          label="وزن"
+        />
+      </EqualizeItems>
       <EqualizeItems>
         <NextTextFild
           defaultValue={defaultValues.id}

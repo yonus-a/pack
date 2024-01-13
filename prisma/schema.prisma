@@ -50,6 +50,7 @@ model product {
   categoryId       Int
   unitId           Int
   typeId           Int
+  weight           String
   budget           budget[]
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
   product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
@@ -113,4 +114,9 @@ model budget {
 
   @@index([branchId], map: "FK_budget_branch")
   @@index([productId], map: "FK_budget_product")
+}
+
+model stock {
+  id     Int    @id @default(autoincrement())
+  amount String
 }

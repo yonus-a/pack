@@ -11,6 +11,7 @@ export default async function addProduct(data: any) {
         categoryId: +data.category,
         unitId: +data.unit,
         typeId: +data.type,
+        weight: data.weight,
       },
     });
   } catch (e) {

@@ -13,8 +13,6 @@ interface Props {
   branches: any;
 }
 
-const requireFilds = {};
-
 export default function AddBudgetClient({ branches }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
@@ -61,7 +59,6 @@ export default function AddBudgetClient({ branches }: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <BudgetInputs
           register={register}
-          requireFilds={requireFilds}
           errors={errors}
           branches={branches}
           setValue={setValue}

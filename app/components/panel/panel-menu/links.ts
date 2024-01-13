@@ -28,7 +28,7 @@ export const links = [
   {
     id: 5,
     name: "مدیریت موجودی انبار",
-    href: "/panel/warehouse-managment",
+    href: "/panel/add-stock",
     permissions: [ADMIN_KEY],
   },
   {

@@ -1,6 +1,7 @@
 "use client";
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
+import editBudget from "@/server-actions/budget/editBudget";
 import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
 import { TextField } from "@mui/material";
@@ -37,8 +38,7 @@ export default function EditBudgetClient({ product }: Props) {
       setLoading(true);
 
       // TODO
-      console.log(data);
-      // await editBudget(budget.id, data);
+      await editBudget(budget.id, data);
 
       setAlert({
         type: "success",
@@ -99,102 +99,16 @@ export default function EditBudgetClient({ product }: Props) {
                   required
                 />
               </Td>
-              <Td>
-                <TextField
-                  {...register(`month1`)}
-                  className="budget-input"
-                  defaultValue={budget.month1}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month2`)}
-                  className="budget-input"
-                  defaultValue={budget.month2}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month3`)}
-                  className="budget-input"
-                  defaultValue={budget.month3}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month4`)}
-                  className="budget-input"
-                  defaultValue={budget.month4}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month5`)}
-                  className="budget-input"
-                  defaultValue={budget.month5}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month6`)}
-                  className="budget-input"
-                  defaultValue={budget.month6}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month7`)}
-                  className="budget-input"
-                  defaultValue={budget.month7}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month8`)}
-                  className="budget-input"
-                  defaultValue={budget.month8}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month9`)}
-                  className="budget-input"
-                  defaultValue={budget.month9}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month10`)}
-                  className="budget-input"
-                  defaultValue={budget.month10}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month11`)}
-                  className="budget-input"
-                  defaultValue={budget.month11}
-                  required
-                />
-              </Td>
-              <Td>
-                <TextField
-                  {...register(`month12`)}
-                  className="budget-input"
-                  defaultValue={budget.month12}
-                  required
-                />
-              </Td>
+              {Array.from({ length: 12 }, (_, i) => (
+                <Td>
+                  <TextField
+                    {...register(`month${i + 1}`)}
+                    className="budget-input"
+                    defaultValue={budget[`month${i}`]}
+                    required
+                  />
+                </Td>
+              ))}
             </Tr>
           </Tbody>
         </Table>

@@ -10,7 +10,6 @@ import "./styles.scss";
 
 interface Props {
   defaultValues?: any;
-  requireFilds: any;
   register: any;
   branches: any;
   setValue: any;
@@ -19,7 +18,6 @@ interface Props {
 
 export default function BudgetInputs({
   defaultValues,
-  requireFilds,
   branches,
   register,
   errors,
@@ -44,7 +42,9 @@ export default function BudgetInputs({
       setValue(`budgets.${id}.months.${i}`, result);
     }
 
-    setValue(`budgets.${id}.year`, value);
+    setValue(`budgets.${id}.year`, value, {
+      shouldValidate: true,
+    });
   };
 
   return (
@@ -56,7 +56,6 @@ export default function BudgetInputs({
           name="branch"
           errors={errors}
           label="شعبه"
-          required={requireFilds?.name}
           defaultValue={defaultValues?.name}
         />
         <NextDatePicker
@@ -107,7 +106,9 @@ export default function BudgetInputs({
                   <Td>
                     <TextField
                       key={i}
-                      {...register(`budgets.${idx}.months.${i}`)}
+                      {...register(`budgets.${idx}.months.${i}`, {
+                        required: true,
+                      })}
                       className="budget-input"
                     />
                   </Td>

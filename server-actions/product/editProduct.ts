@@ -14,6 +14,7 @@ export default async function editProduct(id: string, data: any) {
         categoryId: +data.category,
         unitId: +data.unit,
         typeId: +data.type,
+        weight: data.weight,
       },
     });
   } catch (e) {

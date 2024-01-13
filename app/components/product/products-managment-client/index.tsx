@@ -64,11 +64,13 @@ export default function ProductsManagmentClient({ prodcuts }: Props) {
             <Th>دسته بندی</Th>
             <Th>واحد اندازه گیری</Th>
             <Th>نوع</Th>
+            <Th>وزن</Th>
             <Th>عملیات ها</Th>
           </Tr>
         </Thead>
         <Tbody>
           {prodcuts?.map((item: any, idx: number) => {
+            console.log(item.weight);
             return (
               <Tr key={item?.id}>
                 <Td>
@@ -85,6 +87,7 @@ export default function ProductsManagmentClient({ prodcuts }: Props) {
                 <Td>{item.product_category?.name}</Td>
                 <Td>{item.product_unit?.name}</Td>
                 <Td>{item.product_type?.name}</Td>
+                <Td>{item.weight}</Td>
                 <Td className="g1">
                   <DeleteWithConform onOk={() => handleDelete([item.id])} />
                   <EditLinkBtn href={`/panel/edit-product/${item.id}`} />
