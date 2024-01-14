@@ -1,5 +1,15 @@
+@use "@/styles/mixins.scss" as *;
+
 .add-order-client {
   h2 {
     margin-bottom: 1.5em;
+  }
+
+  .top-section {
+    @include flex-gap(1.3em);
+
+    .next-mui-select {
+      width: 23ch;
+    }
   }
 }

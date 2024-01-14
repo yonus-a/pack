@@ -4,13 +4,22 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface Props {
   handleChange?: any;
+  defaultValue?: any;
   views?: any;
 }
 
-export default function NextDatePicker({ handleChange, views = {} }: Props) {
+export default function NextDatePicker({
+  defaultValue,
+  handleChange,
+  views = {},
+}: Props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFnsJalali}>
-      <DatePicker onChange={handleChange} views={views} />
+      <DatePicker
+        onChange={handleChange}
+        views={views}
+        defaultValue={defaultValue}
+      />
     </LocalizationProvider>
   );
 }

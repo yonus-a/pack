@@ -1,32 +1,56 @@
 "use client";
 
-import EqualizeItems from "../../general/equalize-items";
+import selectOptionsGenerator from "@/utils/selectOptionsGenerator";
+import NextMuiSelect from "../../general/next-mui-select";
 import ProductFilter from "../products-filter";
-import AddOrderForm from "../add-order-form";
+import AddOrderForm from "../add-order-inputs";
+import { useState } from "react";
 import "./styles.scss";
 
 interface Props {
+  defaultBranch: any;
   categories: any;
   products: any;
+  branches: any;
   isAdmin: any;
   stock: any;
   date: any;
 }
 
 export default function AddOrederClient({
+  defaultBranch,
   categories,
   products,
+  branches,
   isAdmin,
   stock,
   date,
 }: Props) {
+  const [branch, setBranch] = useState(defaultBranch);
+  const branchesOption = selectOptionsGenerator(branches);
+
   return (
     <div className="add-order-client">
       <h2>سفارش محصول</h2>
       {/* filter products */}
-      <ProductFilter categories={categories} />
+      <div className="top-section">
+        {isAdmin && (
+          <NextMuiSelect
+            items={branchesOption}
+            onChange={({ target }: any) => setBranch(target.value)}
+            defaultValue={branch}
+          />
+        )}
+        <ProductFilter categories={categories} />
+      </div>
       {/* order products */}
-      <AddOrderForm products={products} stock={stock} date={date} />
+      <AddOrderForm
+        products={products}
+        branch={branch}
+        isAdmin={isAdmin}
+        stock={stock}
+        date={date}
+      />
     </div>
   );
 }

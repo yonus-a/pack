@@ -13,8 +13,9 @@ model user {
   lastname    String
   phone       String
   permission  String
-  branchId    Int
-  branch      branch      @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_user_branch")
+  branchId    Int?
+  order       order[]
+  branch      branch?     @relation(fields: [branchId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_user_branch")
   permissions permissions @relation(fields: [permission], references: [id], onUpdate: Restrict, map: "FK_user_permission")
 
   @@index([branchId], map: "FK_user_branch")
@@ -52,6 +53,7 @@ model product {
   typeId           Int
   weight           String
   budget           budget[]
+  order            order[]
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
   product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
   product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
@@ -122,14 +124,21 @@ model stock {
 }
 
 model order {
-  id            Int    @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   productId     String
   monthlyBudget Int
-  dailyBudget   Float  @db.Float
+  dailyBudget   Float   @db.Float
   unit          Int
   weight        String
   stock         Int
   totalWeight   String
   number        Int
   factor        Int
+  branchId      Int
+  userId        String
+  product       product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_order_product")
+  user          user    @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
+
+  @@index([productId], map: "FK_order_product")
+  @@index([userId], map: "FK_order_user")
 }

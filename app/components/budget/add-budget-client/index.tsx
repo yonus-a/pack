@@ -1,9 +1,10 @@
 "use client";
 
+import isSomeFildEmpty from "@/utils/general/isSomeFildEmpty";
 import addBudget from "@/server-actions/budget/addBudget";
 import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
-import BudgetInputs from "../budget-inputs";
+import BudgetInputs from "../add-budget-inputs";
 import { useForm } from "react-hook-form";
 import Alert from "../../general/alert";
 import { useState } from "react";
@@ -29,7 +30,20 @@ export default function AddBudgetClient({ branches }: Props) {
     try {
       setLoading(true);
 
-      // TODO
+      if (isSomeFildEmpty(data.budgets)) {
+        setAlert({
+          type: "error",
+          msg: "مقادیر ناقض وارد شده اند !",
+        });
+
+        return false;
+      }
+
+      // filtred fill budgets
+      data.budgets = data.budgets.filter(({ months }: any) =>
+        months.every(Boolean)
+      );
+
       await addBudget(data);
 
       setAlert({
@@ -41,10 +55,10 @@ export default function AddBudgetClient({ branches }: Props) {
         router.refresh();
         router.push("/panel/budget-managment");
       }, 1850);
-    } catch (e) {
+    } catch (e: any) {
       setAlert({
         type: "error",
-        msg: "مشکلی پیش آمده لطفا مجددا تلاش کنید !",
+        msg: e.message,
       });
     } finally {
       setLoading(false);
@@ -59,7 +73,6 @@ export default function AddBudgetClient({ branches }: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <BudgetInputs
           register={register}
-          errors={errors}
           branches={branches}
           setValue={setValue}
         />

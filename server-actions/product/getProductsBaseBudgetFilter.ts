@@ -1,21 +1,21 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { endOfMonth, startOfMonth } from "date-fns";
+import { endOfYear, startOfYear } from "date-fns";
 
 export default async function getProductsWithBudget({ date, branchId }: any) {
-  const startMonth = startOfMonth(date);
-  const endMonth = endOfMonth(date);
+  const startYear = startOfYear(date);
+  const endYear = endOfYear(date);
 
   try {
     return await prisma.product.findMany({
       where: {
         budget: {
           some: {
-            branchId: +branchId,
+            branchId: branchId ? +branchId : undefined,
             date: {
-              gte: startMonth,
-              lte: endMonth,
+              gte: startYear,
+              lte: endYear,
             },
           },
         },

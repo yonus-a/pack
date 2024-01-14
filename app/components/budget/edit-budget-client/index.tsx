@@ -26,7 +26,8 @@ export default function EditBudgetClient({ product }: Props) {
     const value = target.value;
     const result = Math.floor(+value / 12);
 
-    for (let i = 0; i < 12; i++) {
+    // create month1, month2, ... month12
+    for (let i = 1; i <= 12; i++) {
       setValue(`month${i}`, result);
     }
 
@@ -104,7 +105,7 @@ export default function EditBudgetClient({ product }: Props) {
                   <TextField
                     {...register(`month${i + 1}`)}
                     className="budget-input"
-                    defaultValue={budget[`month${i}`]}
+                    defaultValue={budget[`month${i + 1}`]}
                     required
                   />
                 </Td>

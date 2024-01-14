@@ -2,8 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export default async function addOrder(data: any) {
-  console.log(data);
+export default async function addOrder({ data, branch, userId }: any) {
   try {
     return await prisma.order.createMany({
       data: data.map((item: any) => ({
@@ -15,7 +14,9 @@ export default async function addOrder(data: any) {
         number: item.number,
         factor: item.factor,
         stock: +item.stock,
+        branchId: +branch,
         unit: +item.unit,
+        userId: userId,
       })),
     });
   } catch (e) {

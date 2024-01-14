@@ -9,7 +9,7 @@ import NextDatePicker from "../../general/next-date-picker";
 import NextMuiSelect from "../../general/next-mui-select";
 import EqualizeItems from "../../general/equalize-items";
 import EditLinkBtn from "../../general/edit-link-btn";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./styles.scss";
 
 interface Props {
@@ -19,22 +19,21 @@ interface Props {
 export default function BudgetInputs({ branches }: Props) {
   const branchesOption = selectOptionsGenerator(branches);
   const [selectedBranch, setSelectedBranch] = useState();
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [product, setProduct] = useState<any>([]);
 
-  const handleDateChange = async (date: any) => {
+  useMemo(async () => {
     try {
+      if (!selectedBranch) return false;
+
       const products = await getProductsBaseBudgetFilter({
         branchId: selectedBranch,
-        date,
+        date: selectedDate,
       });
 
       setProduct(products);
     } catch (e) {}
-  };
-
-  const handleBranchChnage = ({ target }: any) => {
-    setSelectedBranch(target.value);
-  };
+  }, [selectedBranch, selectedDate]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -49,11 +48,12 @@ export default function BudgetInputs({ branches }: Props) {
           items={branchesOption}
           name="branch"
           label="شعبه"
-          onChange={handleBranchChnage}
+          onChange={({ target }: any) => setSelectedBranch(target.value)}
         />
         <NextDatePicker
-          handleChange={handleDateChange}
-          views={["year", "month"]}
+          handleChange={setSelectedDate}
+          defaultValue={selectedDate}
+          views={["year"]}
         />
       </EqualizeItems>
       <Table>
@@ -100,7 +100,7 @@ export default function BudgetInputs({ branches }: Props) {
                 <Td>{budget.month10}</Td>
                 <Td>{budget.month11}</Td>
                 <Td>{budget.month12}</Td>
-                <Td>
+                <Td className="g1">
                   <EditLinkBtn href={`/panel/edit-budget/${item.id}`} />
                   <DeleteWithConform onOk={() => handleDelete(item.id)} />
                 </Td>

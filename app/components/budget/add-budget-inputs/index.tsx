@@ -5,39 +5,36 @@ import NextDatePicker from "../../general/next-date-picker";
 import NextMuiSelect from "../../general/next-mui-select";
 import EqualizeItems from "../../general/equalize-items";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./styles.scss";
 
 interface Props {
-  defaultValues?: any;
   register: any;
   branches: any;
   setValue: any;
-  errors: any;
 }
 
-export default function BudgetInputs({
-  defaultValues,
-  branches,
-  register,
-  errors,
-  setValue,
-}: Props) {
+export default function BudgetInputs({ branches, register, setValue }: Props) {
   const branchesOption = selectOptionsGenerator(branches);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedBranch, setSelectedBranch] = useState(null);
   const [product, setProduct] = useState<any>([]);
 
-  const handleDateChange = async (date: any) => {
+  useMemo(async () => {
     try {
+      if (!selectedBranch) return false;
+
       const products = await getProducts();
+      setValue("date", selectedDate, { shouldValidate: true });
       setProduct(products);
-      setValue("date", date, { shouldValidate: true });
     } catch (e) {}
-  };
+  }, [selectedDate, selectedBranch]);
 
   const handleYearChnage = (id: number, { target }: any) => {
     const value = target.value;
     const result = Math.floor(+value / 12);
 
+    // create an array [12, 10, 1...]
     for (let i = 0; i < 12; i++) {
       setValue(`budgets.${id}.months.${i}`, result);
     }
@@ -47,20 +44,24 @@ export default function BudgetInputs({
     });
   };
 
+  const handleBranchChange = ({ target }: any) => {
+    const value = target.value;
+    setSelectedBranch(value);
+    setValue("branch", value);
+  };
+
   return (
     <>
       <EqualizeItems>
         <NextMuiSelect
           items={branchesOption}
-          register={register}
-          name="branch"
-          errors={errors}
+          onChange={handleBranchChange}
           label="شعبه"
-          defaultValue={defaultValues?.name}
         />
         <NextDatePicker
-          handleChange={handleDateChange}
-          views={["year", "month"]}
+          handleChange={setSelectedDate}
+          defaultValue={selectedDate}
+          views={["year"]}
         />
       </EqualizeItems>
       <Table>
@@ -102,13 +103,12 @@ export default function BudgetInputs({
                   {...register(`budgets.${idx}.productId`)}
                   value={item.id}
                 />
+                {/* also create and input array [1, 7, 2, ....] */}
                 {Array.from({ length: 12 }, (_, i) => (
                   <Td>
                     <TextField
                       key={i}
-                      {...register(`budgets.${idx}.months.${i}`, {
-                        required: true,
-                      })}
+                      {...register(`budgets.${idx}.months.${i}`)}
                       className="budget-input"
                     />
                   </Td>

@@ -34,7 +34,7 @@ export const links = [
   {
     id: 6,
     name: "سفارش محصول",
-    href: "/panel/order",
+    href: "/panel/add-order",
     permissions: [ADMIN_KEY, USER_KEY],
   },
   {

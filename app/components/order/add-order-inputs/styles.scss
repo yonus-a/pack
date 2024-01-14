@@ -1,7 +1,15 @@
 .add-order-form {
-  margin-top: 2em;
+  margin-top: 3em;
 
   input {
     width: 10ch;
+  }
+
+  .primary-btn {
+    position: fixed;
+    left: 100px;
+    bottom: 100px;
+    width: 40ch;
+    z-index: 999;
   }
 }
