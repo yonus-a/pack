@@ -45,12 +45,18 @@ export const links = [
   },
   {
     id: 8,
+    name: "سفارشات",
+    href: "/panel/show-orders",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 9,
     name: "مدیریت اعلانات",
     href: "/panel/notification-managment",
     permissions: [ADMIN_KEY],
   },
   {
-    id: 9,
+    id: 10,
     name: "کاربر",
     href: "/panel/users-managment",
     permissions: [USER_KEY],

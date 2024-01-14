@@ -23,6 +23,11 @@ export default function UserInputs({
   const permissionsOption = selectOptionsGenerator(permissions);
   const branchesOption = selectOptionsGenerator(branches);
 
+  branchesOption.unshift({
+    label: "هیچکدام",
+    value: "",
+  });
+
   return (
     <>
       <EqualizeItems>

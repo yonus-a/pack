@@ -6,10 +6,10 @@ export default async function addUser(data: any) {
   try {
     return await prisma.user.create({
       data: {
+        branchId: data.branch ? +data.branch : undefined,
         permission: data.permission,
         firstname: data.firstname,
         lastname: data.lastname,
-        branchId: +data.branch,
         phone: data.phone,
         id: data.idcard,
       },

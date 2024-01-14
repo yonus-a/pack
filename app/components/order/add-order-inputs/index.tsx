@@ -1,7 +1,7 @@
 "use client";
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
-import addOrder from "@/server-actions/order/add-order.ts";
+import addOrder from "@/server-actions/order/addOrder";
 import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
 import { getMonth } from "date-fns-jalali";
@@ -78,8 +78,8 @@ export default function AddOrderForm({
       });
 
       setTimeout(() => {
-        // router.refresh();
-        // router.push("/");
+        router.refresh();
+        router.push("/panel/show-orders");
       }, 1850);
     } catch (e) {
       setAlert({

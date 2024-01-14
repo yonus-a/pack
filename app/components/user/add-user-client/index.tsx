@@ -1,13 +1,13 @@
 "use client";
 
+import PriamryBtn from "../../general/primary-btn";
 import addUser from "@/server-actions/addUser";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import UserInputs from "../user-inputs";
+import Alert from "../../general/alert";
 import { useState } from "react";
 import "./styles.scss";
-import Alert from "../../general/alert";
-import PriamryBtn from "../../general/primary-btn";
 
 interface Props {
   permissions: any;
@@ -18,8 +18,8 @@ const requireFilds = {
   permission: true,
   firstname: true,
   lastname: true,
+  branch: false,
   idcard: true,
-  branch: true,
   phone: true,
 };
 

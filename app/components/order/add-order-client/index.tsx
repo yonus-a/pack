@@ -32,8 +32,8 @@ export default function AddOrederClient({
   return (
     <div className="add-order-client">
       <h2>سفارش محصول</h2>
-      {/* filter products */}
       <div className="top-section">
+        {/* if user is admin should pick a branch */}
         {isAdmin && (
           <NextMuiSelect
             items={branchesOption}
@@ -43,7 +43,6 @@ export default function AddOrederClient({
         )}
         <ProductFilter categories={categories} />
       </div>
-      {/* order products */}
       <AddOrderForm
         products={products}
         branch={branch}

@@ -14,6 +14,7 @@ model user {
   phone       String
   permission  String
   branchId    Int?
+  deleted     Int?        @default(0)
   order       order[]
   branch      branch?     @relation(fields: [branchId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_user_branch")
   permissions permissions @relation(fields: [permission], references: [id], onUpdate: Restrict, map: "FK_user_permission")
@@ -35,14 +36,16 @@ model branch {
   address                       String
   distance_to_central_warehouse String
   distance_to_factory           String
+  deleted                       Int?     @default(0)
   budget                        budget[]
   user                          user[]
 }
 
 model permissions {
-  id   String @id
-  name String
-  user user[]
+  id      String @id
+  name    String
+  deleted Int?
+  user    user[]
 }
 
 model product {
@@ -52,6 +55,7 @@ model product {
   unitId           Int
   typeId           Int
   weight           String
+  deleted          Int?             @default(0)
   budget           budget[]
   order            order[]
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
@@ -66,12 +70,14 @@ model product {
 model product_category {
   id      Int       @id @default(autoincrement())
   name    String
+  deleted Int?      @default(0)
   product product[]
 }
 
 model product_type {
   id      Int       @id @default(autoincrement())
   name    String
+  deleted Int?      @default(0)
   product product[]
 }
 
@@ -79,6 +85,7 @@ model product_unit {
   id      Int       @id @default(autoincrement())
   name    String
   unit    Int
+  deleted Int?      @default(0)
   product product[]
 }
 
@@ -90,6 +97,7 @@ model notification {
   createdAt DateTime @db.DateTime(0)
   seen      Int      @default(0)
   sendSms   Int      @default(0)
+  deleted   Int      @default(0)
 }
 
 model budget {
@@ -111,6 +119,7 @@ model budget {
   month11   Int
   month12   Int
   createdAt DateTime? @default(now()) @db.DateTime(0)
+  deleted   Int?      @default(0)
   branch    branch    @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_budget_branch")
   product   product   @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_budget_product")
 
@@ -119,15 +128,16 @@ model budget {
 }
 
 model stock {
-  id     Int    @id @default(autoincrement())
-  amount String
+  id      Int    @id @default(autoincrement())
+  amount  String
+  deleted Int?   @default(0)
 }
 
 model order {
-  id            Int     @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   productId     String
   monthlyBudget Int
-  dailyBudget   Float   @db.Float
+  dailyBudget   Float        @db.Float
   unit          Int
   weight        String
   stock         Int
@@ -136,9 +146,21 @@ model order {
   factor        Int
   branchId      Int
   userId        String
-  product       product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_order_product")
-  user          user    @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
+  orderAt       DateTime     @db.DateTime(0)
+  statusId      Int          @default(1)
+  deleted       Int?         @default(0)
+  product       product      @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_order_product")
+  order_status  order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
+  user          user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
 
   @@index([productId], map: "FK_order_product")
   @@index([userId], map: "FK_order_user")
+  @@index([statusId], map: "FK_order_status")
+}
+
+model order_status {
+  id      Int     @id @default(autoincrement())
+  title   String
+  deleted Int?    @default(0)
+  order   order[]
 }

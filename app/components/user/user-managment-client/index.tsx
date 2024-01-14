@@ -2,11 +2,13 @@
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import DeleteWithConform from "../../general/delete-with-conform";
+import deleteUser from "@/server-actions/user/deleteUser";
 import SearchFilter from "../../general/search-filter";
 import EditLinkBtn from "../../general/edit-link-btn";
 import useSelectAll from "@/hooks/useSelectAll";
 import { useRouter } from "next/navigation";
 import Confirm from "../../general/confirm";
+import Alert from "../../general/alert";
 import { useState } from "react";
 import "./styles.scss";
 
@@ -23,6 +25,7 @@ export default function UsersManagmentClient({ users }: Props) {
 
   const handleDelete = async (ids: any) => {
     try {
+      await deleteUser(ids);
       router.refresh();
     } catch (e) {
       setAlert({
@@ -34,6 +37,7 @@ export default function UsersManagmentClient({ users }: Props) {
 
   return (
     <section className="users-managment-client">
+      {alert && <Alert {...alert} />}
       <div className="g1">
         <SearchFilter />
         <Confirm

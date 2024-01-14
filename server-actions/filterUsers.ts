@@ -9,6 +9,7 @@ export default async function filterUsers({ page, take, searchParams }: any) {
 
     const filter = {
       ...filterUsersBaseSearch(search),
+      deleted: 0,
     };
 
     const users = await prisma.user.findMany({

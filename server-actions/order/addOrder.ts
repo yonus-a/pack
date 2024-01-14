@@ -1,8 +1,11 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import getDate from "../general/getDate";
 
 export default async function addOrder({ data, branch, userId }: any) {
+  const date = await getDate();
+
   try {
     return await prisma.order.createMany({
       data: data.map((item: any) => ({
@@ -17,6 +20,7 @@ export default async function addOrder({ data, branch, userId }: any) {
         branchId: +branch,
         unit: +item.unit,
         userId: userId,
+        orderAt: date,
       })),
     });
   } catch (e) {

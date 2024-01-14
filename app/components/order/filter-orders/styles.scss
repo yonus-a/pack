@@ -1,0 +1,7 @@
+@use "@/styles/mixins.scss" as *;
+
+.filter-orders {
+  @include flex-align-center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
