@@ -10,8 +10,16 @@ export default async function getOrderById(id: any) {
       },
       include: {
         order_status: true,
-        order_item: true,
         branch: true,
+        order_item: {
+          include: {
+            product: {
+              include: {
+                product_type: true,
+              },
+            },
+          },
+        },
       },
     });
   } catch (e) {
