@@ -4,23 +4,21 @@ export default function filterOrderBaseSearch(search: number) {
   return {
     OR: [
       {
-        productId: {
+        id: {
           contains: search,
         },
       },
       {
-        product: {
+        branch: {
           name: {
             contains: search,
           },
         },
       },
       {
-        product: {
-          product_type: {
-            name: {
-              contains: search,
-            },
+        order_status: {
+          title: {
+            contains: search,
           },
         },
       },

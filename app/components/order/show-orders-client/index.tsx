@@ -17,28 +17,24 @@ export default function ShowOrdersClient({ orders, date }: Props) {
         <Thead>
           <Tr>
             <Th>*</Th>
-            <Th>شناسه محصول</Th>
-            <Th>عنوان محصول</Th>
-            <Th>وزن</Th>
-            <Th>ضریب</Th>
-            <Th>نوع سنجش</Th>
-            <Th>تعداد</Th>
-            <Th>وزن کل</Th>
+            <Th>شماره درخاست</Th>
+            <Th>شعبه</Th>
+            <Th>تاریخ ثبت</Th>
             <Th>وضعیت</Th>
+            <Th>تعداد کل</Th>
+            <Th>وزن کل</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {orders.map((order: any, idx: number) => (
+          {orders?.map((order: any, idx: number) => (
             <Tr key={order.id}>
               <Td>{idx + 1}</Td>
-              <Td>{order.productId}</Td>
-              <Td>{order.product.name}</Td>
-              <Td>{order.weight}</Td>
-              <Td>{order.factor}</Td>
-              <Td>{order.unit}</Td>
-              <Td>{order.number}</Td>
-              <Td>{order.totalWeight}</Td>
+              <Td>{order.id}</Td>
+              <Td>{order.branch?.name}</Td>
+              <Td>{order.createdAt?.toLocaleString()}</Td>
               <Td>{order.order_status?.title}</Td>
+              <Td>{order.total_orders}</Td>
+              <Td>{order.total_weight}</Td>
             </Tr>
           ))}
         </Tbody>

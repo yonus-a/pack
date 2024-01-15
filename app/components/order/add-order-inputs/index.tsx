@@ -69,8 +69,20 @@ export default function AddOrderForm({
         return false;
       }
 
+      const items = Object.values(formState);
+      const total_weight = items.reduce((a, v: any) => a + v.totalWeight, 0);
+      const total_orders = items.reduce((a, v: any) => a + v.number, 0);
+      const total_stock = items.reduce((a, v: any) => a + v.stock, 0);
+
       // TODO
-      await addOrder({ data: Object.values(formState), branch, userId });
+      await addOrder({
+        total_weight,
+        total_orders,
+        total_stock,
+        branch,
+        userId,
+        items,
+      });
 
       setAlert({
         type: "success",

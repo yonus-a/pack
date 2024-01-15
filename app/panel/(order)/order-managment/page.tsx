@@ -1,4 +1,6 @@
 import OrderManagmentClient from "@/app/components/order/order-managment-client";
+import getProductCategories from "@/server-actions/product/getProductCategories";
+import getProductTypes from "@/server-actions/product/getProductTypes";
 import filterOrders from "@/server-actions/order/filterOrders";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
@@ -14,11 +16,18 @@ export default async function OrderManagment({ searchParams }: any) {
   }
 
   const { orders, countOrders } = await filterOrders(searchParams);
+  const categories = await getProductCategories();
+  const types = await getProductTypes();
   const date = await getDate();
 
   return (
     <Container>
-      <OrderManagmentClient orders={orders} date={date} />
+      <OrderManagmentClient
+        categories={categories}
+        orders={orders}
+        types={types}
+        date={date}
+      />
     </Container>
   );
 }

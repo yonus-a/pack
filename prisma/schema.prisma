@@ -38,6 +38,7 @@ model branch {
   distance_to_factory           String
   deleted                       Int?     @default(0)
   budget                        budget[]
+  order                         order[]
   user                          user[]
 }
 
@@ -57,7 +58,7 @@ model product {
   weight           String
   deleted          Int?             @default(0)
   budget           budget[]
-  order            order[]
+  order_item       order_item[]
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
   product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
   product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
@@ -134,28 +135,24 @@ model stock {
 }
 
 model order {
-  id            Int          @id @default(autoincrement())
-  productId     String
-  monthlyBudget Int
-  dailyBudget   Float        @db.Float
-  unit          Int
-  weight        String
-  stock         Int
-  totalWeight   String
-  number        Int
-  factor        Int
-  branchId      Int
-  userId        String
-  orderAt       DateTime     @db.DateTime(0)
-  statusId      Int          @default(1)
-  deleted       Int?         @default(0)
-  product       product      @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_order_product")
-  order_status  order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
-  user          user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
+  id           String       @id
+  total_orders Int
+  total_weight Int
+  total_stock  Int
+  statusId     Int          @default(1)
+  createdAt    DateTime     @db.DateTime(0)
+  updatedAt    DateTime     @default(now()) @db.DateTime(0)
+  deleted      Int?         @default(0)
+  userId       String
+  branchId     Int
+  branch       branch       @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_order_branch")
+  order_status order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
+  user         user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
+  order_item   order_item[]
 
-  @@index([productId], map: "FK_order_product")
-  @@index([userId], map: "FK_order_user")
+  @@index([branchId], map: "FK_order_branch")
   @@index([statusId], map: "FK_order_status")
+  @@index([userId], map: "FK_order_user")
 }
 
 model order_status {
@@ -163,4 +160,24 @@ model order_status {
   title   String
   deleted Int?    @default(0)
   order   order[]
+}
+
+model order_item {
+  id            Int     @id @default(autoincrement())
+  productId     String
+  monthlyBudget Int
+  dailyBudget   Float   @db.Float
+  unit          Int
+  weight        String
+  stock         Int
+  totalWeight   String
+  number        Int
+  factor        Int
+  deleted       Int?    @default(0)
+  orderId       String
+  order         order   @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_orderItem_order")
+  product       product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_orderItem_product")
+
+  @@index([orderId], map: "FK_orderItem_order")
+  @@index([productId], map: "FK_orderItem_product")
 }

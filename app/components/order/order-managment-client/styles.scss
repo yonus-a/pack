@@ -1,0 +1,27 @@
+@use "@/styles/mixins.scss" as *;
+
+.order-managment-client {
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  .order-filter {
+    @include flex-gap(1em);
+    flex-wrap: wrap;
+
+    h2 {
+      margin-bottom: 2em;
+    }
+
+    .next-mui-select {
+      width: 25ch;
+    }
+  }
+
+  tbody {
+    tr:hover {
+      background-color: #eee;
+      cursor: pointer;
+    }
+  }
+}

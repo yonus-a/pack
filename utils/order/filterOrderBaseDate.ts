@@ -8,7 +8,7 @@ export default function filterOrderBaseDate(date: number) {
   const endDay = endOfDay(nextDate);
 
   return {
-    orderAt: {
+    createdAt: {
       gt: startDay,
       lt: endDay,
     },

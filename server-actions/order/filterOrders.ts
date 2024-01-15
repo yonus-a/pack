@@ -11,18 +11,19 @@ export default async function filterOrders(searchParams: any) {
     const { search, type, category, date } = searchParams;
 
     const filters: any = {
-      ...filterOrderBaseCategory(category),
+      ...filterOrderBaseCategory(+category),
       ...filterOrderBaseSearch(search),
+      ...filterOrderBaseType(+type),
       ...filterOrderBaseDate(date),
-      ...filterOrderBaseType(type),
       deleted: 0,
     };
 
     const orders = await prisma.order.findMany({
       where: filters,
       include: {
-        product: true,
         order_status: true,
+        order_item: true,
+        branch: true,
       },
     });
 
