@@ -35,8 +35,8 @@ export default function AddOrderForm({
 
   const handleChange = (item: any, { target }: any) => {
     const factor = +target.value;
-    const totalWeight = factor * item.weight;
     const number = factor * item.product_unit.unit;
+    const totalWeight = number * +item.weight;
 
     setFormState({
       ...formState,
@@ -92,7 +92,7 @@ export default function AddOrderForm({
       setTimeout(() => {
         router.refresh();
         router.push("/panel/show-orders");
-      }, 1850);
+      }, 1800);
     } catch (e) {
       setAlert({
         type: "error",

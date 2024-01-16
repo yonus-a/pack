@@ -163,20 +163,22 @@ model order_status {
 }
 
 model order_item {
-  id            Int     @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   productId     String
   monthlyBudget Int
-  dailyBudget   Float   @db.Float
+  dailyBudget   Float    @db.Float
   unit          Int
   weight        String
   stock         Int
   totalWeight   String
   number        Int
   factor        Int
-  deleted       Int?    @default(0)
+  deleted       Int?     @default(0)
   orderId       String
-  order         order   @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_orderItem_order")
-  product       product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_orderItem_product")
+  createdAt     DateTime @db.DateTime(0)
+  updatedAt     DateTime @default(now()) @db.DateTime(0)
+  order         order    @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_orderItem_order")
+  product       product  @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_orderItem_product")
 
   @@index([orderId], map: "FK_orderItem_order")
   @@index([productId], map: "FK_orderItem_product")

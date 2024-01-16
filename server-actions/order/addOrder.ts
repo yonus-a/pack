@@ -1,8 +1,8 @@
 "use server";
 
-import prisma from "@/lib/prisma";
-import getDate from "../general/getDate";
 import getRandomInt from "@/utils/general/getRandomInt";
+import getDate from "../general/getDate";
+import prisma from "@/lib/prisma";
 
 export default async function addOrder(data: any) {
   const date = await getDate();
@@ -29,6 +29,7 @@ export default async function addOrder(data: any) {
               factor: item.factor,
               stock: +item.stock,
               unit: +item.unit,
+              createdAt: date,
             })),
           },
         },

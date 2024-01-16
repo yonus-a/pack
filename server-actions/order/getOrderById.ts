@@ -16,6 +16,8 @@ export default async function getOrderById(id: any) {
             product: {
               include: {
                 product_type: true,
+                product_category: true,
+                product_unit: true,
               },
             },
           },

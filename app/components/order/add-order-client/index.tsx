@@ -3,7 +3,7 @@
 import selectOptionsGenerator from "@/utils/selectOptionsGenerator";
 import NextMuiSelect from "../../general/next-mui-select";
 import ProductFilter from "../products-filter";
-import AddOrderForm from "../add-order-inputs";
+import AddOrderForm from "../add-order-form";
 import { useState } from "react";
 import "./styles.scss";
 

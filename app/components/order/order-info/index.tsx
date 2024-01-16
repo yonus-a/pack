@@ -1,5 +1,9 @@
 "use client";
 
+import calculateOrderInfo from "@/utils/order/calculateOrderInfo";
+import { format } from "date-fns-jalali";
+import "./styles.scss";
+
 interface Props {
   order: any;
 }
@@ -7,46 +11,23 @@ interface Props {
 export default function OrderInfo({ order }: Props) {
   const items = order.order_item;
 
-  const PasteurizeProducts = items.filter(
-    ({ product }: any) => product.typeId == 2
-  );
-
-  const StrileProducts = items.filter(
-    ({ product }: any) => product.typeId == 1
-  );
-
-  const totalPasteurizeProductsWeight = PasteurizeProducts.reduce(
-    (c: any, v: any) => c + +v.totalWeight,
-    0
-  );
-
-  const totalStrileProductsWeight = StrileProducts.reduce(
-    (c: any, v: any) => c + +v.totalWeight,
-    0
-  );
-
-  const totalWeight = items.reduce((c: any, v: any) => c + +v.totalWeight, 0);
-
-  const types = items.map(({ product }: any) => product.product_type);
-
-  const filterdTypes = types.reduce((acc: any, val: any) => {
-    if (acc.find((item: any) => item.name == val.name)) return acc;
-    acc.push(val);
-    return acc;
-  }, []);
-
-  const countTypes = filterdTypes.map(({ id, name }: any) => {
-    const count = items.filter((item: any) => item.product.typeId == id).length;
-    return { name, count };
-  });
+  const {
+    totalPasteurizeProductsWeight,
+    totalStrileProductsWeight,
+    countCategories,
+    totalWeight,
+    countTypes,
+  } = calculateOrderInfo(items);
 
   return (
     <section className="order-info">
       <div className="top-section">
         <h2>
           <span>{order.branch.name}</span>
-          <span>{order.createdAt.toLocaleString()}</span>
+          <span>{format(order.createdAt, "yyyy/mm/dd")}</span>
         </h2>
+      </div>
+      <div className="body">
         <div className="weight">
           <p>
             وزن بخش استریل سفارش
@@ -61,13 +42,24 @@ export default function OrderInfo({ order }: Props) {
             <strong>{totalWeight}</strong>
           </p>
         </div>
-        <ul className="categories">
-          {countTypes.map(({ name, count }: any) => (
-            <li key={name}>
-              {name} <strong>{count}</strong>
-            </li>
-          ))}
-        </ul>
+        <div className="types">
+          <ul>
+            {countTypes.map(({ name, count }: any) => (
+              <li key={name}>
+                {name} <strong>{count} عدد</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="categories">
+          <ul>
+            {countCategories.map(({ name, count }: any) => (
+              <li key={name}>
+                {name} <strong>{count} عدد</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
