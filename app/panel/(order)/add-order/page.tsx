@@ -5,7 +5,6 @@ import { isAdmin, isRegister } from "@/server-actions/permissions";
 import Container from "@/app/components/general/container";
 import getUserId from "@/server-actions/general/getUserId";
 import getUserById from "@/server-actions/getUserById";
-import getStock from "@/server-actions/stock/getStock";
 import getDate from "@/server-actions/general/getDate";
 import getBranches from "@/server-actions/getBranches";
 import { notFound } from "next/navigation";
@@ -19,7 +18,7 @@ export default async function Order({ searchParams }: any) {
     return notFound();
   }
 
-  const stock = await getStock();
+  const stock = 0;
   const userId = await getUserId();
   const categories = await getProductCategories();
   const products = await getAllProductsBaseFilter(searchParams);

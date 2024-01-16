@@ -1,7 +1,7 @@
-import AddStockClient from "@/app/components/stock/add-stock";
+import AddStockClient from "@/app/components/stock/add-stock-client";
+import getProducts from "@/server-actions/product/getProducts";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
-import getStock from "@/server-actions/stock/getStock";
 import { notFound } from "next/navigation";
 
 export default async function AddStock() {
@@ -12,11 +12,11 @@ export default async function AddStock() {
     return notFound();
   }
 
-  const stock = await getStock();
+  const products = await getProducts();
 
   return (
     <Container>
-      <AddStockClient currentAmount={stock?.amount || 0} />
+      <AddStockClient products={products} />
     </Container>
   );
 }
