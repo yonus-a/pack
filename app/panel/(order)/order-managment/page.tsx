@@ -1,7 +1,7 @@
 import OrderManagmentClient from "@/app/components/order/order-managment-client";
-import getProductCategories from "@/server-actions/product/getProductCategories";
-import getProductTypes from "@/server-actions/product/getProductTypes";
+import NextTablePagination from "@/app/components/general/next-table-pagination";
 import filterOrders from "@/server-actions/order/filterOrders";
+import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
 import getDate from "@/server-actions/general/getDate";
@@ -15,18 +15,20 @@ export default async function OrderManagment({ searchParams }: any) {
     return notFound();
   }
 
-  const { orders, countOrders } = await filterOrders(searchParams);
-  const categories = await getProductCategories();
-  const types = await getProductTypes();
+  const take = +searchParams.take || 20;
+  const page = +searchParams.page || 0;
+  const { orders, countOrders } = await filterOrders(searchParams, page, take);
   const date = await getDate();
 
   return (
     <Container>
-      <OrderManagmentClient
-        categories={categories}
-        orders={orders}
-        types={types}
-        date={date}
+      <AddLinkBtn href={"/panel/add-order"}>اضافه کردن</AddLinkBtn>
+      <OrderManagmentClient orders={orders} date={date} />
+      <NextTablePagination
+        url={"/panel/order-managment"}
+        total={countOrders}
+        page={page}
+        take={take}
       />
     </Container>
   );

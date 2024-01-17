@@ -41,7 +41,7 @@ export default function EditBranchClient({ branch }: Props) {
 
       setAlert({
         type: "success",
-        msg: "",
+        msg: "شعبه با موفقیت ویرایش شد",
       });
 
       setTimeout(() => {

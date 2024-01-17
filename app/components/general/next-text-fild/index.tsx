@@ -12,6 +12,8 @@ interface Props {
   errors?: any;
   value?: any;
   name?: any;
+  min?: any;
+  max?: any;
 }
 
 export default function NextTextFild({
@@ -25,12 +27,16 @@ export default function NextTextFild({
   value,
   name = "",
   label = "",
+  min,
+  max,
 }: Props) {
   const error = errors[name];
+  const requiredErr = error?.type === "required";
+  const lengthErr = error?.type === "min" && error?.type === "max";
   let options;
 
   if (register) {
-    options = register(name, required);
+    options = register(name, { required: required, min, max });
   } else {
     options = { value, onChange, name };
   }
@@ -44,7 +50,8 @@ export default function NextTextFild({
         {...options}
         type={type}
       />
-      {error && <p className="error">{label} نمیتواند خالی باشد</p>}
+      {requiredErr && <p className="error">{label} نمیتواند خالی باشد</p>}
+      {lengthErr && <p className="error">{label} نامعتبر است</p>}
     </FormGroup>
   );
 }

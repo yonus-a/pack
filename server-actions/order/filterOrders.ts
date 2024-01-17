@@ -6,7 +6,11 @@ import filterOrderBaseType from "@/utils/order/filterOrderBaseType";
 import filterOrderBaseDate from "@/utils/order/filterOrderBaseDate";
 import prisma from "@/lib/prisma";
 
-export default async function filterOrders(searchParams: any) {
+export default async function filterOrders(
+  searchParams: any,
+  page: number,
+  take: number
+) {
   try {
     const { search, type, category, date } = searchParams;
 
@@ -19,6 +23,8 @@ export default async function filterOrders(searchParams: any) {
     };
 
     const orders = await prisma.order.findMany({
+      take,
+      skip: page * take,
       where: filters,
       include: {
         order_status: true,

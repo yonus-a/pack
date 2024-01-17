@@ -7,6 +7,7 @@ export default async function getProducts() {
     return await prisma.product.findMany({
       include: {
         product_category: true,
+        product_stock: true,
         product_type: true,
         product_unit: true,
         budget: true,

@@ -70,7 +70,6 @@ export default function ProductsManagmentClient({ prodcuts }: Props) {
         </Thead>
         <Tbody>
           {prodcuts?.map((item: any, idx: number) => {
-            console.log(item.weight);
             return (
               <Tr key={item?.id}>
                 <Td>

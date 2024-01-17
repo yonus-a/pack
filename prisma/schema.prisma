@@ -62,6 +62,7 @@ model product {
   product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
   product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
   product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
+  product_stock    product_stock[]
 
   @@index([categoryId], map: "FK_product_category")
   @@index([typeId], map: "FK_product_type")
@@ -128,12 +129,6 @@ model budget {
   @@index([productId], map: "FK_budget_product")
 }
 
-model stock {
-  id      Int    @id @default(autoincrement())
-  amount  String
-  deleted Int?   @default(0)
-}
-
 model order {
   id           String       @id
   total_orders Int
@@ -182,4 +177,14 @@ model order_item {
 
   @@index([orderId], map: "FK_orderItem_order")
   @@index([productId], map: "FK_orderItem_product")
+}
+
+model product_stock {
+  id        Int     @id @default(autoincrement())
+  amount    String
+  deleted   Int?    @default(0)
+  productId String
+  product   product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_stock_prodcut")
+
+  @@index([productId], map: "FK_stock_prodcut")
 }

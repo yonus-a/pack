@@ -1,0 +1,26 @@
+@use "@/styles/mixins.scss" as *;
+
+.edit-order-client {
+  .filters {
+    @include flex-gap(1em);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .footer {
+    position: fixed;
+    padding: 1em 3em;
+    bottom: 0;
+    background-color: #27374d;
+    @include flex-align-center;
+    justify-content: end;
+    left: 0;
+    right: 0;
+    gap: 1em;
+
+    .btn {
+      min-width: 85px;
+      @include flex-center;
+    }
+  }
+}

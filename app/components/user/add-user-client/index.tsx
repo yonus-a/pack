@@ -1,7 +1,7 @@
 "use client";
 
+import addUser from "@/server-actions/user/addUser";
 import PriamryBtn from "../../general/primary-btn";
-import addUser from "@/server-actions/addUser";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import UserInputs from "../user-inputs";
@@ -18,7 +18,7 @@ const requireFilds = {
   permission: true,
   firstname: true,
   lastname: true,
-  branch: false,
+  branch: true,
   idcard: true,
   phone: true,
 };
@@ -32,6 +32,7 @@ export default function AddUserClient({ branches, permissions }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const onSubmit = async (data: any) => {
@@ -66,11 +67,12 @@ export default function AddUserClient({ branches, permissions }: Props) {
       <h2>اضافه کردن کاربر</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UserInputs
-          register={register}
-          errors={errors}
           requireFilds={requireFilds}
-          branches={branches}
           permissions={permissions}
+          register={register}
+          setValue={setValue}
+          branches={branches}
+          errors={errors}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}

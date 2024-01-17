@@ -1,12 +1,13 @@
 "use client";
 
+import editUser from "@/server-actions/user/editUser";
+import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import UserInputs from "../user-inputs";
+import Alert from "../../general/alert";
 import { useState } from "react";
 import "./styles.scss";
-import Alert from "../../general/alert";
-import PriamryBtn from "../../general/primary-btn";
 
 interface Props {
   permissions: any;
@@ -32,13 +33,14 @@ export default function EditUserClient({ branches, user, permissions }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
 
-      // TODO
+      await editUser(user.id, data);
 
       setAlert({
         type: "success",
@@ -66,12 +68,13 @@ export default function EditUserClient({ branches, user, permissions }: Props) {
       <h2>ویرایش کردن کاربر</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <UserInputs
-          register={register}
-          errors={errors}
           requireFilds={requireFilds}
           permissions={permissions}
-          branches={branches}
           defaultValues={user}
+          setValue={setValue}
+          branches={branches}
+          register={register}
+          errors={errors}
         />
         <PriamryBtn type="submit">
           {loading ? "در حال پردازش..." : "ثبت"}

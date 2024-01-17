@@ -38,6 +38,7 @@ export default function EditProductClient({
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const onSubmit = async (data: any) => {

@@ -2,15 +2,19 @@
 
 import prisma from "@/lib/prisma";
 
-export default async function addStock(data: any) {
+export default async function addStock(value: any, id: string) {
   try {
-    // delete current stock
-    await prisma.stock.deleteMany({});
-
-    // add new stock
-    return await prisma.stock.create({
+    return prisma.product.update({
+      where: {
+        id,
+      },
       data: {
-        amount: data.amount,
+        product_stock: {
+          deleteMany: {},
+          create: {
+            amount: value,
+          },
+        },
       },
     });
   } catch (e) {

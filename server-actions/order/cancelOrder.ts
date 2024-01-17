@@ -2,14 +2,14 @@
 
 import prisma from "@/lib/prisma";
 
-export default async function rejectOrder(id: string) {
+export default async function cancelOrder(id: string) {
   try {
     return await prisma.order.update({
       where: {
         id,
       },
       data: {
-        statusId: 3,
+        statusId: 4,
       },
     });
   } catch (e) {

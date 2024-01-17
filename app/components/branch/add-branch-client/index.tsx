@@ -37,7 +37,7 @@ export default function AddBranchClient() {
 
       setAlert({
         type: "success",
-        msg: "",
+        msg: "شعبه با موفقیت ساخته شد",
       });
 
       setTimeout(() => {

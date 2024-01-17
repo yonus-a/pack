@@ -1,9 +1,12 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import validate from "./validate";
 
 export default async function addUser(data: any) {
   try {
+    await validate(data);
+
     return await prisma.user.create({
       data: {
         branchId: data.branch ? +data.branch : undefined,
@@ -21,6 +24,6 @@ export default async function addUser(data: any) {
       throw new Error("کاربر با این شماره ملی از قبل ساخته شده");
     }
 
-    throw new Error("مشکلی در سرور به وجود آمده است !");
+    throw new Error(e.message || "مشکلی در سرور به وجود آمده است !");
   }
 }

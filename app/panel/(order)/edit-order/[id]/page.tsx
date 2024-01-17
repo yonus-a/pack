@@ -1,10 +1,10 @@
 import getProductCategories from "@/server-actions/product/getProductCategories";
-import CheckOrderClient from "@/app/components/order/check-order-client";
+import EditOrderClient from "@/app/components/order/edit-order-client";
 import getOrderById from "@/server-actions/order/getOrderById";
 import { isAdmin } from "@/server-actions/permissions";
 import { notFound } from "next/navigation";
 
-export default async function CheckOrder({ params, searchParams }: any) {
+export default async function EditOrder({ params, searchParams }: any) {
   const admin = await isAdmin();
 
   if (!admin) {
@@ -27,5 +27,5 @@ export default async function CheckOrder({ params, searchParams }: any) {
     );
   }
 
-  return <CheckOrderClient categories={categories} order={order} />;
+  return <EditOrderClient categories={categories} order={order} />;
 }

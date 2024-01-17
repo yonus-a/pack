@@ -15,7 +15,6 @@ interface Props {
   products: any;
   isAdmin: any;
   branch: any;
-  stock: any;
   date: any;
 }
 
@@ -23,7 +22,6 @@ export default function AddOrderForm({
   products,
   isAdmin,
   branch,
-  stock,
   date,
 }: Props) {
   const userId = useUserId();
@@ -129,11 +127,12 @@ export default function AddOrderForm({
             const budget = item.budget[0];
             const monthlyBudget = budget[`month${month}`];
             const dailyBudget = Math.floor(monthlyBudget / 24);
+            const stock = item.product_stock[0].amount;
 
             // add more data to item
             item.monthlyBudget = monthlyBudget;
             item.dailyBudget = dailyBudget;
-            item.stock = stock.amount;
+            item.stock = stock;
 
             return (
               <Tr>
@@ -142,7 +141,7 @@ export default function AddOrderForm({
                 <Td>{item.name}</Td>
                 <Td>{monthlyBudget}</Td>
                 <Td>{dailyBudget}</Td>
-                <Td>{stock.amount}</Td>
+                <Td>{stock}</Td>
                 <Td>{item.weight}</Td>
                 <Td>
                   <TextField

@@ -46,7 +46,7 @@ export default function ProductInputs({
           errors={errors}
           type="number"
           name="weight"
-          label="وزن"
+          label="وزن (کیلوگرم)"
         />
       </EqualizeItems>
       <EqualizeItems>

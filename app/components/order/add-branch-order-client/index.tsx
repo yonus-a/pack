@@ -16,7 +16,7 @@ interface Props {
   date: any;
 }
 
-export default function AddOrederClient({
+export default function AddBranchOrederClient({
   defaultBranch,
   categories,
   products,
@@ -29,16 +29,14 @@ export default function AddOrederClient({
 
   return (
     <div className="add-order-client">
-      <h2>سفارش محصول</h2>
+      <h2>سفارش محصول برای شعبه</h2>
       <div className="top-section">
-        {isAdmin && (
-          <NextMuiSelect
-            items={branchesOption}
-            onChange={({ target }: any) => setBranch(target.value)}
-            defaultValue={branch}
-            label="شعبه"
-          />
-        )}
+        <NextMuiSelect
+          items={branchesOption}
+          onChange={({ target }: any) => setBranch(target.value)}
+          defaultValue={branch}
+          label="شعبه"
+        />
         <ProductFilter categories={categories} url="/panel/add-order" />
       </div>
       <AddOrderForm

@@ -17,6 +17,7 @@ export default async function getAllProductsBaseFilter(searchParams: any) {
       where: filter,
       include: {
         product_category: true,
+        product_stock: true,
         product_type: true,
         product_unit: true,
         budget: true,

@@ -1,10 +1,11 @@
+import getAllProductsBaseFilter from "@/server-actions/product/getAllProductsBaseFilter";
+import getProductCategories from "@/server-actions/product/getProductCategories";
 import AddStockClient from "@/app/components/stock/add-stock-client";
-import getProducts from "@/server-actions/product/getProducts";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
 import { notFound } from "next/navigation";
 
-export default async function AddStock() {
+export default async function AddStock({ searchParams }: any) {
   // check permission
   const admin = await isAdmin();
 
@@ -12,11 +13,12 @@ export default async function AddStock() {
     return notFound();
   }
 
-  const products = await getProducts();
+  const products = await getAllProductsBaseFilter(searchParams);
+  const categories = await getProductCategories();
 
   return (
     <Container>
-      <AddStockClient products={products} />
+      <AddStockClient products={products} categories={categories} />
     </Container>
   );
 }
