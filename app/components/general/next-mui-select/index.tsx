@@ -2,29 +2,29 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import "./styles.scss";
 
 interface Props {
-  items: any;
-  label?: string;
-  defaultValue?: any;
-  register?: any;
   multiple?: boolean;
-  value?: any;
+  defaultValue?: any;
+  required?: boolean;
+  register?: any;
+  label?: string;
   onChange?: any;
   name?: string;
-  required?: boolean;
   errors?: any;
+  value?: any;
+  items: any;
 }
 
 export default function NextMuiSelect({
-  items,
-  label,
-  register,
   defaultValue,
+  errors = {},
   name = "",
+  register,
   multiple,
-  value,
   onChange,
   required,
-  errors = {},
+  items,
+  label,
+  value,
 }: Props) {
   let options;
   const error = errors[name];

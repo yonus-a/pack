@@ -77,7 +77,7 @@ export default function AddProductUnit() {
                 name="unit"
                 label="واحد"
               />
-              <PriamryBtn type="button" onClick={handleAdd}>
+              <PriamryBtn type="button" onClick={handleAdd} disabled={loading}>
                 {loading ? "در حال پردازش..." : "ثبت"}
               </PriamryBtn>
             </div>

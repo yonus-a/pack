@@ -11,6 +11,7 @@ import "./styles.scss";
 
 export default function Signin() {
   const [errors, setErrors] = useState<any>({});
+  const [loading, setLoading] = useState(false);
   const [formState, setFormState] = useState({
     idcard: "",
     otp: "",
@@ -58,17 +59,17 @@ export default function Signin() {
             <div className="input-group">
               <SendOTP idcard={formState.idcard} />
               <TextField
-                className="input"
-                type="text"
                 label="رمز یکبار مصرف"
                 onChange={handleChange}
+                className="input"
+                type="text"
                 name="otp"
               />
             </div>
             {errors?.otp?.required && (
               <ErrorMsg>لطفا رمز را وارد کنید</ErrorMsg>
             )}
-            <PriamryBtn type="submit" onClick={handleSignin}>
+            <PriamryBtn type="submit" onClick={handleSignin} disabled={loading}>
               ورود
             </PriamryBtn>
           </div>

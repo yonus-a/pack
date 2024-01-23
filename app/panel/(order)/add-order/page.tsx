@@ -1,7 +1,7 @@
 import getAllProductsBaseFilter from "@/server-actions/product/getAllProductsBaseFilter";
 import getProductCategories from "@/server-actions/product/getProductCategories";
 import AddOrderClient from "@/app/components/order/add-order-client";
-import { isAdmin, isRegister } from "@/server-actions/permissions";
+import { isRegister } from "@/server-actions/permissions";
 import Container from "@/app/components/general/container";
 import getUserId from "@/server-actions/general/getUserId";
 import getUserById from "@/server-actions/getUserById";
@@ -12,13 +12,11 @@ import "./styles.scss";
 
 export default async function Order({ searchParams }: any) {
   const register = await isRegister();
-  const admin = await isAdmin();
 
   if (!register) {
     return notFound();
   }
 
-  const stock = 0;
   const userId = await getUserId();
   const categories = await getProductCategories();
   const products = await getAllProductsBaseFilter(searchParams);
@@ -33,8 +31,6 @@ export default async function Order({ searchParams }: any) {
         defaultBranch={user?.branchId}
         categories={categories}
         products={products}
-        isAdmin={admin}
-        stock={stock}
         date={date}
       />
     </Container>

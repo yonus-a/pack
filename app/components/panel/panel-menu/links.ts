@@ -55,4 +55,10 @@ export const links = [
     href: "/panel/users-managment",
     permissions: [USER_KEY],
   },
+  {
+    id: 10,
+    name: "مدریت کامیون ها",
+    href: "/panel/trucks-managment",
+    permissions: [ADMIN_KEY],
+  },
 ];

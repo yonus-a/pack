@@ -12,10 +12,11 @@ import "./styles.scss";
 
 interface Props {
   categories: any;
+  trucks: any;
   order: any;
 }
 
-export default function CheckOrderClient({ categories, order }: Props) {
+export default function CheckOrderClient({ categories, order, trucks }: Props) {
   const router = useRouter();
 
   const handleRejectOrder = async () => {
@@ -47,7 +48,7 @@ export default function CheckOrderClient({ categories, order }: Props) {
           <EditOrderForm order={order} />
         </Container>
       </div>
-      <OrderInfo order={order} />
+      <OrderInfo order={order} trucks={trucks} />
       <div className="footer">
         <button className="btn" onClick={handleRejectOrder}>
           رد

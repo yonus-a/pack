@@ -46,10 +46,8 @@ export default function EditBudgetClient({ product }: Props) {
         msg: "بودجه با موفقیت ویرایش شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/budget-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/budget-managment");
     } catch (e) {
       setAlert({
         type: "error",
@@ -113,7 +111,7 @@ export default function EditBudgetClient({ product }: Props) {
             </Tr>
           </Tbody>
         </Table>
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

@@ -28,12 +28,7 @@ export default async function ProductsManagment({ searchParams }: any) {
       <Container>
         <AddLinkBtn href={"/panel/add-product"}>اضافه کردن</AddLinkBtn>
         <ProductsManagmentClient prodcuts={products} />
-        <NextTablePagination
-          total={10}
-          page={page}
-          take={take}
-          url={"/panel/users-managment"}
-        />
+        <NextTablePagination total={countProducts} page={page} take={take} />
       </Container>
     </main>
   );

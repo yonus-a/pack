@@ -44,10 +44,8 @@ export default function EditBranchClient({ branch }: Props) {
         msg: "شعبه با موفقیت ویرایش شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/branches-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/branches-managment");
     } catch (e) {
       setAlert({
         type: "error",
@@ -70,7 +68,7 @@ export default function EditBranchClient({ branch }: Props) {
           errors={errors}
           defaultValues={branch}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

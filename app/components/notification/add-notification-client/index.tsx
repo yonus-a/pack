@@ -33,10 +33,8 @@ export default function AddNotificationClient() {
         msg: "اعلان با موفقیت ثبت شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/notification-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/notification-managment");
     } catch (e) {
       setAlert({
         type: "error",
@@ -58,7 +56,7 @@ export default function AddNotificationClient() {
           errors={errors}
           requireFilds={requireFilds}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

@@ -47,10 +47,8 @@ export default function EditUserClient({ branches, user, permissions }: Props) {
         msg: "کاربر با موفقیت ویرایش شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/users-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/users-managment");
     } catch (e: any) {
       setAlert({
         type: "error",
@@ -76,7 +74,7 @@ export default function EditUserClient({ branches, user, permissions }: Props) {
           register={register}
           errors={errors}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

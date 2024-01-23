@@ -22,14 +22,9 @@ export default async function OrderManagment({ searchParams }: any) {
 
   return (
     <Container>
-      <AddLinkBtn href={"/panel/add-order"}>اضافه کردن</AddLinkBtn>
+      <AddLinkBtn href={"/panel/add-branch-order"}>اضافه کردن</AddLinkBtn>
       <OrderManagmentClient orders={orders} date={date} />
-      <NextTablePagination
-        url={"/panel/order-managment"}
-        total={countOrders}
-        page={page}
-        take={take}
-      />
+      <NextTablePagination total={countOrders} page={page} take={take} />
     </Container>
   );
 }

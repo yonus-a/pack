@@ -2,13 +2,15 @@
 
 import calculateOrderInfo from "@/utils/order/calculateOrderInfo";
 import { format } from "date-fns-jalali";
+import AddDriver from "../add-driver";
 import "./styles.scss";
 
 interface Props {
   order: any;
+  trucks: any;
 }
 
-export default function OrderInfo({ order }: Props) {
+export default function OrderInfo({ order, trucks }: Props) {
   const items = order.order_item;
 
   const {
@@ -60,6 +62,7 @@ export default function OrderInfo({ order }: Props) {
             ))}
           </ul>
         </div>
+        <AddDriver trucks={trucks} />
       </div>
     </section>
   );

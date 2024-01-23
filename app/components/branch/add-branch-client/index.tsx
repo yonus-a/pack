@@ -40,10 +40,8 @@ export default function AddBranchClient() {
         msg: "شعبه با موفقیت ساخته شد",
       });
 
-      setTimeout(() => {
         router.refresh();
         router.push("/panel/branches-managment");
-      }, 1850);
     } catch (e) {
       setAlert({
         type: "error",
@@ -65,7 +63,7 @@ export default function AddBranchClient() {
           requireFilds={requireFilds}
           errors={errors}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

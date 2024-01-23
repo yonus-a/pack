@@ -17,22 +17,22 @@ export default async function Order({ searchParams }: any) {
     return notFound();
   }
 
-  const userId = await getUserId();
-  const categories = await getProductCategories();
   const products = await getAllProductsBaseFilter(searchParams);
+  const categories = await getProductCategories();
+  const userId = await getUserId();
   const user = await getUserById(userId);
   const branches = await getBranches();
   const date = await getDate();
 
   return (
     <Container>
-      {/* <AddBranchOrederClient
+      <AddBranchOrederClient
         branches={branches}
         defaultBranch={user?.branchId}
         categories={categories}
         products={products}
         date={date}
-      /> */}
+      />
     </Container>
   );
 }

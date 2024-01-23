@@ -67,7 +67,7 @@ export default function AddProductCategory() {
                 name="name"
                 label="نام"
               />
-              <PriamryBtn type="button" onClick={handleAdd}>
+              <PriamryBtn type="button" onClick={handleAdd} disabled={loading}>
                 {loading ? "در حال پردازش..." : "ثبت"}
               </PriamryBtn>
             </div>

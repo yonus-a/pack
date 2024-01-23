@@ -1,0 +1,11 @@
+@use "@/styles/mixins.scss" as *;
+
+.truck-form {
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  form {
+    @include grid-gap(1em);
+  }
+}

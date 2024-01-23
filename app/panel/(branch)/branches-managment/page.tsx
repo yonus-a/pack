@@ -28,12 +28,7 @@ export default async function BranchesManagment({ searchParams }: any) {
       <Container>
         <AddLinkBtn href={"/panel/add-branch"}>اضافه کردن</AddLinkBtn>
         <BranchesManagmentClient branches={branches} />
-        <NextTablePagination
-          total={countBranches}
-          page={page}
-          take={take}
-          url={"/panel/users-managment"}
-        />
+        <NextTablePagination total={countBranches} page={page} take={take} />
       </Container>
     </main>
   );

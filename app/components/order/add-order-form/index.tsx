@@ -13,22 +13,16 @@ import "./styles.scss";
 
 interface Props {
   products: any;
-  isAdmin: any;
   branch: any;
   date: any;
 }
 
-export default function AddOrderForm({
-  products,
-  isAdmin,
-  branch,
-  date,
-}: Props) {
-  const userId = useUserId();
+export default function AddOrderForm({ products, branch, date }: Props) {
   const [formState, setFormState] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const month = getMonth(date) + 1;
+  const userId = useUserId();
   const router = useRouter();
 
   const handleChange = (item: any, { target }: any) => {
@@ -45,8 +39,8 @@ export default function AddOrderForm({
         weight: item.weight,
         productId: item.id,
         stock: +item.stock,
-        userId: userId,
         branchId: +branch,
+        userId: userId,
         totalWeight,
         number,
         factor,
@@ -58,7 +52,7 @@ export default function AddOrderForm({
     try {
       setLoading(true);
 
-      if (!branch && isAdmin) {
+      if (!branch) {
         setAlert({
           type: "error",
           msg: "شعبه ای برای سفارش در نظر گرفته نشده !",
@@ -87,10 +81,8 @@ export default function AddOrderForm({
         msg: "سفارش شما با موفقیت ثبت شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/show-orders");
-      }, 1800);
+      router.refresh();
+      router.push("/panel/show-orders");
     } catch (e) {
       setAlert({
         type: "error",
@@ -124,8 +116,8 @@ export default function AddOrderForm({
         </Thead>
         <Tbody>
           {products.map((item: any, idx: number) => {
-            const budget = item.budget[0];
-            const monthlyBudget = budget[`month${month}`];
+            const budget = item.budget[0] || {};
+            const monthlyBudget = budget[`month${month}`] || 0;
             const dailyBudget = Math.floor(monthlyBudget / 24);
             const stock = item.product_stock[0].amount;
 
@@ -147,6 +139,7 @@ export default function AddOrderForm({
                   <TextField
                     type="number"
                     onChange={(e) => handleChange(item, e)}
+                    InputProps={{ inputProps: { min: 0 } }}
                   />
                 </Td>
                 <Td>{item.product_unit.name}</Td>
@@ -158,7 +151,7 @@ export default function AddOrderForm({
           })}
         </Tbody>
       </Table>
-      <PriamryBtn onClick={handleClick} type="button">
+      <PriamryBtn onClick={handleClick} type="button" disabled={loading}>
         {loading ? "در حال پردازش..." : "سفارش"}
       </PriamryBtn>
     </div>

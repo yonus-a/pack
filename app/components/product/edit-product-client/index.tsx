@@ -52,10 +52,8 @@ export default function EditProductClient({
         msg: "محصول با موفقیت ویرایش شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/products-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/products-managment");
     } catch (e) {
       setAlert({
         type: "error",
@@ -81,7 +79,7 @@ export default function EditProductClient({
           units={units}
           types={types}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

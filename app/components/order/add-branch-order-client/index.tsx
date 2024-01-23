@@ -12,7 +12,6 @@ interface Props {
   categories: any;
   products: any;
   branches: any;
-  isAdmin: any;
   date: any;
 }
 
@@ -21,7 +20,6 @@ export default function AddBranchOrederClient({
   categories,
   products,
   branches,
-  isAdmin,
   date,
 }: Props) {
   const [branch, setBranch] = useState(defaultBranch);
@@ -39,12 +37,7 @@ export default function AddBranchOrederClient({
         />
         <ProductFilter categories={categories} url="/panel/add-order" />
       </div>
-      <AddOrderForm
-        products={products}
-        branch={branch}
-        date={date}
-        isAdmin={isAdmin}
-      />
+      <AddOrderForm products={products} branch={branch} date={date} />
     </div>
   );
 }

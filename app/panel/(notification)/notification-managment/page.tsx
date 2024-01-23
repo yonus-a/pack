@@ -25,13 +25,8 @@ export default async function ProductsManagment({ searchParams }: any) {
     <main>
       <Container>
         <AddLinkBtn href={"/panel/add-notification"}>اضافه کردن</AddLinkBtn>
-        
-        <NextTablePagination
-          total={10}
-          page={page}
-          take={take}
-          url={"/panel/notification-managment"}
-        />
+
+        <NextTablePagination total={10} page={page} take={take} />
       </Container>
     </main>
   );

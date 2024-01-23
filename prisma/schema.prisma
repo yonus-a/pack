@@ -188,3 +188,11 @@ model product_stock {
 
   @@index([productId], map: "FK_stock_prodcut")
 }
+
+model truck {
+  id        Int      @id @default(autoincrement())
+  name      String
+  tonnage   Float    @db.Float
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @default(now()) @db.DateTime(0)
+}

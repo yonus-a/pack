@@ -51,10 +51,8 @@ export default function AddBudgetClient({ branches }: Props) {
         msg: "بودجه با موفقیت ثبت شد",
       });
 
-      setTimeout(() => {
-        router.refresh();
-        router.push("/panel/budget-managment");
-      }, 1850);
+      router.refresh();
+      router.push("/panel/budget-managment");
     } catch (e: any) {
       setAlert({
         type: "error",
@@ -76,7 +74,7 @@ export default function AddBudgetClient({ branches }: Props) {
           branches={branches}
           setValue={setValue}
         />
-        <PriamryBtn type="submit">
+        <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

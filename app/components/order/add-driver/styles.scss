@@ -1,0 +1,28 @@
+@use "@/styles/mixins.scss" as *;
+
+.add-driver {
+  form {
+    @include grid-gap(1em);
+
+    .g1 {
+      align-items: center;
+      justify-content: space-between;
+
+      .remove-btn {
+        @include icon-size(25px);
+        @include flex-align-center;
+      }
+    }
+
+    .form-wrapper {
+      @include grid-gap(1em);
+    }
+  }
+
+  .add-btn {
+    @include flex-align-center;
+    @include icon-size(50px);
+    @include flex-center;
+    width: 100%;
+  }
+}

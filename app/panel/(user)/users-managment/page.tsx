@@ -28,12 +28,7 @@ export default async function UsersManagment({ searchParams }: any) {
       <Container>
         <AddLinkBtn href={"/panel/add-user"}>اضافه کردن</AddLinkBtn>
         <UsersManagmentClient users={users} />
-        <NextTablePagination
-          url={"/panel/users-managment"}
-          total={countUsers}
-          page={page}
-          take={take}
-        />
+        <NextTablePagination total={countUsers} page={page} take={take} />
       </Container>
     </main>
   );

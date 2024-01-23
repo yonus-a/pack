@@ -24,12 +24,7 @@ export default async function showOrders({ searchParams }: any) {
     <Container>
       <AddLinkBtn href={"/panel/add-order"}>اضافه کردن</AddLinkBtn>
       <ShowOrdersClient orders={orders} date={date} />
-      <NextTablePagination
-        url={"/panel/show-orders"}
-        total={countOrders}
-        page={page}
-        take={take}
-      />
+      <NextTablePagination total={countOrders} page={page} take={take} />
     </Container>
   );
 }
