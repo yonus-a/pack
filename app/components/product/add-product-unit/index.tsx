@@ -18,6 +18,7 @@ export default function AddProductUnit() {
   const [formState, setFormState] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const [errors, setErrors] = useState<any>({});
   const router = useRouter();
 
@@ -30,6 +31,7 @@ export default function AddProductUnit() {
 
     try {
       setLoading(true);
+      setDisabled(true);
 
       // TODO
       await addProductUnit(formState);
@@ -43,7 +45,10 @@ export default function AddProductUnit() {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -77,7 +82,7 @@ export default function AddProductUnit() {
                 name="unit"
                 label="واحد"
               />
-              <PriamryBtn type="button" onClick={handleAdd} disabled={loading}>
+              <PriamryBtn type="button" onClick={handleAdd} disabled={disabled}>
                 {loading ? "در حال پردازش..." : "ثبت"}
               </PriamryBtn>
             </div>

@@ -4,6 +4,7 @@ import AddStockClient from "@/app/components/stock/add-stock-client";
 import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permissions";
 import { notFound } from "next/navigation";
+import "../../index";
 
 export default async function AddStock({ searchParams }: any) {
   // check permission

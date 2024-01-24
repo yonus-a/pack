@@ -11,6 +11,7 @@ export default async function getOrderById(id: any) {
       include: {
         order_status: true,
         branch: true,
+        driver: true,
         order_item: {
           include: {
             product: {

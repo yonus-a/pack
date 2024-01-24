@@ -26,6 +26,7 @@ const requireFilds = {
 export default function AddUserClient({ branches, permissions }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const router = useRouter();
 
   const {
@@ -38,6 +39,7 @@ export default function AddUserClient({ branches, permissions }: Props) {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       await addUser(data);
 
@@ -55,7 +57,10 @@ export default function AddUserClient({ branches, permissions }: Props) {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -72,7 +77,7 @@ export default function AddUserClient({ branches, permissions }: Props) {
           branches={branches}
           errors={errors}
         />
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

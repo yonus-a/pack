@@ -10,17 +10,18 @@ import { useState } from "react";
 import "./styles.scss";
 
 const requireFilds = {
-  name: true,
-  province: true,
-  city: true,
-  address: true,
   distanceToCentralWarehouse: true,
   distanceToFactory: true,
+  province: true,
+  address: true,
+  name: true,
+  city: true,
 };
 
 export default function AddBranchClient() {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const router = useRouter();
 
   const {
@@ -32,6 +33,7 @@ export default function AddBranchClient() {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       await addBranch(data);
 
@@ -40,8 +42,8 @@ export default function AddBranchClient() {
         msg: "شعبه با موفقیت ساخته شد",
       });
 
-        router.refresh();
-        router.push("/panel/branches-managment");
+      router.refresh();
+      router.push("/panel/branches-managment");
     } catch (e) {
       setAlert({
         type: "error",
@@ -49,7 +51,10 @@ export default function AddBranchClient() {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -63,7 +68,7 @@ export default function AddBranchClient() {
           requireFilds={requireFilds}
           errors={errors}
         />
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

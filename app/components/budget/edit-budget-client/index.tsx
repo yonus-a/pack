@@ -17,6 +17,7 @@ interface Props {
 export default function EditBudgetClient({ product }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const budget = product.budget[0];
   const router = useRouter();
 
@@ -37,6 +38,7 @@ export default function EditBudgetClient({ product }: Props) {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       // TODO
       await editBudget(budget.id, data);
@@ -55,7 +57,10 @@ export default function EditBudgetClient({ product }: Props) {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -111,7 +116,7 @@ export default function EditBudgetClient({ product }: Props) {
             </Tr>
           </Tbody>
         </Table>
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

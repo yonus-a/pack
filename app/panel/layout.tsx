@@ -10,6 +10,7 @@ import PcOnly from "../components/general/pc-only";
 import { getSession } from "next-auth/react";
 import { notFound } from "next/navigation";
 import "@/styles/panel.scss";
+import "./index";
 
 interface Props {
   children: React.ReactNode;

@@ -32,6 +32,7 @@ export default function EditProductClient({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const router = useRouter();
 
   const {
@@ -44,6 +45,7 @@ export default function EditProductClient({
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       await editProduct(product.id, data);
 
@@ -61,7 +63,10 @@ export default function EditProductClient({
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -79,7 +84,7 @@ export default function EditProductClient({
           units={units}
           types={types}
         />
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

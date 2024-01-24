@@ -23,6 +23,7 @@ interface Props {
 }
 
 export default function EditTruckClient({ truck }: Props) {
+  const [disabled, setDisabled] = useState<any>(false);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
@@ -36,6 +37,8 @@ export default function EditTruckClient({ truck }: Props) {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
+
       const image = data.image[0];
       let nextImage;
 
@@ -64,7 +67,10 @@ export default function EditTruckClient({ truck }: Props) {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -78,7 +84,7 @@ export default function EditTruckClient({ truck }: Props) {
           register={register}
           errors={errors}
         />
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

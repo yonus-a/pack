@@ -1,8 +1,10 @@
 .main-nav {
+  height: 100%;
+
   .menubar {
     background-color: #eee;
     align-content: start;
-    height: 100vh;
+    height: 100%;
 
     a {
       padding: 0.9em 2em;

@@ -62,7 +62,7 @@ export default function OrderInfo({ order, trucks }: Props) {
             ))}
           </ul>
         </div>
-        <AddDriver trucks={trucks} />
+        <AddDriver trucks={trucks} orderId={order.id} drivers={order.driver} />
       </div>
     </section>
   );

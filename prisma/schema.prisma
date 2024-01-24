@@ -140,6 +140,8 @@ model order {
   deleted      Int?         @default(0)
   userId       String
   branchId     Int
+  seen         Int          @default(0)
+  driver       driver[]
   branch       branch       @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_order_branch")
   order_status order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
   user         user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
@@ -195,4 +197,21 @@ model truck {
   tonnage   Float    @db.Float
   createdAt DateTime @default(now()) @db.DateTime(0)
   updatedAt DateTime @default(now()) @db.DateTime(0)
+  driver    driver[]
+}
+
+model driver {
+  id          Int      @id @default(autoincrement())
+  name        String
+  phone       String
+  numberplate String
+  truckId     Int
+  orderId     String
+  createdAt   DateTime @default(now()) @db.DateTime(0)
+  updatedAt   DateTime @default(now()) @db.DateTime(0)
+  order       order    @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_driver_order")
+  truck       truck    @relation(fields: [truckId], references: [id], onUpdate: Restrict, map: "FK_driver_truck")
+
+  @@index([orderId], map: "FK_driver_order")
+  @@index([truckId], map: "FK_driver_truck")
 }

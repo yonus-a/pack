@@ -1,6 +1,7 @@
 import NextMuiThemeProvider from "./components/general/next-mui-theme-provider";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import SvgSprite from "./components/general/svg-sprite";
+import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import "@/styles/global.scss";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         <body>
           {children}
           <SvgSprite />
+          <Toaster />
         </body>
       </NextMuiThemeProvider>
     </html>

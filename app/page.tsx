@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import "./panel/index";
 
 export default function Home() {
   redirect("/auth/signin");

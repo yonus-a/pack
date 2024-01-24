@@ -8,6 +8,7 @@
   // zIndex
   --dialog-layer-zIndex: 99999999;
   --alert-zIndex: 999999999;
+  --footer-zIndex: 9999;
 }
 
 @font-face {
@@ -56,6 +57,11 @@
   font-weight: 400;
   margin: 0;
   padding: 0;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 html {

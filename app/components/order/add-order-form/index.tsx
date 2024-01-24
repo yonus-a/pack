@@ -21,6 +21,7 @@ export default function AddOrderForm({ products, branch, date }: Props) {
   const [formState, setFormState] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const month = getMonth(date) + 1;
   const userId = useUserId();
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function AddOrderForm({ products, branch, date }: Props) {
   const handleClick = async () => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       if (!branch) {
         setAlert({
@@ -90,7 +92,10 @@ export default function AddOrderForm({ products, branch, date }: Props) {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -151,7 +156,7 @@ export default function AddOrderForm({ products, branch, date }: Props) {
           })}
         </Tbody>
       </Table>
-      <PriamryBtn onClick={handleClick} type="button" disabled={loading}>
+      <PriamryBtn onClick={handleClick} type="button" disabled={disabled}>
         {loading ? "در حال پردازش..." : "سفارش"}
       </PriamryBtn>
     </div>

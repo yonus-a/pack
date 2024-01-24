@@ -11,6 +11,7 @@
     position: fixed;
     padding: 1em 3em;
     bottom: 0;
+    z-index: var(--footer-zIndex);
     background-color: #27374d;
     @include flex-align-center;
     justify-content: end;

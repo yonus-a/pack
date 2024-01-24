@@ -14,6 +14,7 @@ const requireFilds = {};
 export default function AddNotificationClient() {
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
+  const [disabled, setDisabled] = useState<any>(false);
   const router = useRouter();
 
   const {
@@ -25,6 +26,7 @@ export default function AddNotificationClient() {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
+      setDisabled(true);
 
       await addNotification(data);
 
@@ -42,7 +44,10 @@ export default function AddNotificationClient() {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => setAlert(null), 1800);
+      setTimeout(() => {
+        setAlert(null);
+        setDisabled(false);
+      }, 1800);
     }
   };
 
@@ -56,7 +61,7 @@ export default function AddNotificationClient() {
           errors={errors}
           requireFilds={requireFilds}
         />
-        <PriamryBtn type="submit" disabled={loading}>
+        <PriamryBtn type="submit" disabled={disabled}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
       </form>

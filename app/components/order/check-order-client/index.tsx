@@ -2,6 +2,7 @@
 
 import ProductCategoriesFilter from "../product-categories-filter";
 import conformOrder from "@/server-actions/order/conformOrder";
+import updateFactor from "@/server-actions/order/updateFactor";
 import rejectOrder from "@/server-actions/order/rejectOrder";
 import Container from "../../general/container";
 import EditOrderForm from "../edit-order-form";
@@ -35,6 +36,23 @@ export default function CheckOrderClient({ categories, order, trucks }: Props) {
     } catch (e) {}
   };
 
+  const handleUpdateFactor = async ({ target }: any, item: any) => {
+    try {
+      const factor = +target.value;
+      const number = factor * item.unit;
+      const totalWeight = number * +item.weight;
+
+      await updateFactor({
+        id: item.id,
+        totalWeight,
+        factor,
+        number,
+      });
+
+      router.refresh();
+    } catch (e) {}
+  };
+
   return (
     <div className="check-order-client">
       <div className="main">
@@ -45,7 +63,10 @@ export default function CheckOrderClient({ categories, order, trucks }: Props) {
               نمایش همه
             </Link>
           </div>
-          <EditOrderForm order={order} />
+          <EditOrderForm
+            handleUpdateFactor={handleUpdateFactor}
+            order={order}
+          />
         </Container>
       </div>
       <OrderInfo order={order} trucks={trucks} />
@@ -53,7 +74,7 @@ export default function CheckOrderClient({ categories, order, trucks }: Props) {
         <button className="btn" onClick={handleRejectOrder}>
           رد
         </button>
-        <button className="btn" onClick={handleConfirmOrder}>
+        <button className="btn" onClick={handleConfirmOrder} form="addDriver">
           تایید
         </button>
         <Link href="/panel/order-managment" className="btn">

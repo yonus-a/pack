@@ -16,6 +16,12 @@
 
     .form-wrapper {
       @include grid-gap(1em);
+      border-top: 1px solid #ccc;
+      padding-top: 1em;
+
+      &:first-child {
+        border-top: 0;
+      }
     }
   }
 
