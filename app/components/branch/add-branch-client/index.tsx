@@ -1,6 +1,6 @@
 "use client";
 
-import addBranch from "@/server-actions/addBranch";
+import addBranch from "@/server-actions/branch/addBranch";
 import PriamryBtn from "../../general/primary-btn";
 import AddBranchInputs from "../branch-inputs";
 import { useRouter } from "next/navigation";

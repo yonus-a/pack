@@ -3,7 +3,7 @@ import ShowOrdersClient from "@/app/components/order/show-orders-client";
 import filterOrders from "@/server-actions/order/filterOrders";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
-import { isRegister } from "@/server-actions/permissions";
+import { isRegister } from "@/server-actions/permission/permissions";
 import getDate from "@/server-actions/general/getDate";
 import { notFound } from "next/navigation";
 import "./styles.scss";

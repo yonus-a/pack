@@ -1,9 +1,9 @@
 import EditUserClient from "@/app/components/user/edit-user-client";
-import getPermissions from "@/server-actions/getPermissions";
+import getPermissions from "@/server-actions/permission/getPermissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
+import getBranches from "@/server-actions/branch/getBranches";
 import Container from "@/app/components/general/container";
-import getBranches from "@/server-actions/getBranches";
-import getUserById from "@/server-actions/getUserById";
-import { isAdmin } from "@/server-actions/permissions";
+import getUserById from "@/server-actions/user/getUserById";
 import { notFound } from "next/navigation";
 
 export default async function EditUser({ params }: any) {

@@ -1,7 +1,7 @@
 import getProductAndBudgetBaseId from "@/server-actions/product/getProductAndBudgetBaseId";
 import EditBudgetClient from "@/app/components/budget/edit-budget-client";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function EditBudget({ params }: any) {

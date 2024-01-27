@@ -1,6 +1,6 @@
 import AddBranchClient from "@/app/components/branch/add-branch-client";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function AddUser() {

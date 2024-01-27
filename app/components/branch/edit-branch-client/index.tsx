@@ -1,6 +1,6 @@
 "use client";
 
-import editBranch from "@/server-actions/editBranch";
+import editBranch from "@/server-actions/branch/editBranch";
 import PriamryBtn from "../../general/primary-btn";
 import { useRouter } from "next/navigation";
 import BranchInputs from "../branch-inputs";
@@ -14,12 +14,12 @@ interface Props {
 }
 
 const requireFilds = {
-  name: true,
-  province: true,
-  city: true,
-  address: true,
   distanceToCentralWarehouse: true,
   distanceToFactory: true,
+  province: true,
+  address: true,
+  name: true,
+  city: true,
 };
 
 export default function EditBranchClient({ branch }: Props) {

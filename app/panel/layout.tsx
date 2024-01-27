@@ -1,7 +1,7 @@
 import {
   generateClientPermission,
   isRegister,
-} from "@/server-actions/permissions";
+} from "@/server-actions/permission/permissions";
 import CustomSessionProvider from "../components/general/custom-session-provider";
 import PanelHeader from "../components/panel/panel-header";
 import MobileOnly from "../components/general/mobile-only";

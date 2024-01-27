@@ -3,7 +3,7 @@ import AddProductClient from "@/app/components/product/add-product-client";
 import getProductUnits from "@/server-actions/product/getProductUnits";
 import getProductTypes from "@/server-actions/product/getProductTypes";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function AddProduct() {

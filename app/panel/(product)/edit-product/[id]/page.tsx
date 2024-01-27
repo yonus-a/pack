@@ -4,7 +4,7 @@ import getProductUnits from "@/server-actions/product/getProductUnits";
 import getProductTypes from "@/server-actions/product/getProductTypes";
 import getProduct from "@/server-actions/product/getProductById";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function EditProduct({ params }: any) {

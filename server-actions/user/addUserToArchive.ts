@@ -1,26 +1,26 @@
 "use server";
 
-import addUserToArchive from "./addUserToArchive";
 import prisma from "@/lib/prisma";
-import validate from "./validate";
 
-export default async function editUser(id: string, data: any) {
+export default async function addUserToArchive(id: string) {
   try {
-    await validate(data);
-
-    // archive current user
-    await addUserToArchive(id);
-
-    return await prisma.user.update({
+    // current user
+    const data = await prisma.user.findFirst({
       where: {
         id,
       },
+    });
+
+    if (!data) return false;
+
+    return await prisma.user_archive.create({
       data: {
-        branchId: data.branch ? +data.branch : null,
         permission: data.permission,
         firstname: data.firstname,
+        branchId: data.branchId,
         lastname: data.lastname,
         phone: data.phone,
+        referId: data.id,
       },
     });
   } catch (e) {

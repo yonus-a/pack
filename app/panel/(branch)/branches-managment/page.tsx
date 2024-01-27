@@ -1,9 +1,9 @@
 import BranchesManagmentClient from "@/app/components/branch/branches-managment-client";
 import NextTablePagination from "@/app/components/general/next-table-pagination";
+import filterBranches from "@/server-actions/branch/filterBranches";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
-import filterBranches from "@/server-actions/filterBranches";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
 import { notFound } from "next/navigation";
 
 export default async function BranchesManagment({ searchParams }: any) {

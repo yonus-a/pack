@@ -1,8 +1,8 @@
 "use client";
 
 import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
+import deleteBranches from "@/server-actions/branch/deleteBranches";
 import DeleteWithConform from "../../general/delete-with-conform";
-import deleteBranches from "@/server-actions/deleteBranches";
 import SearchFilter from "../../general/search-filter";
 import EditLinkBtn from "../../general/edit-link-btn";
 import useSelectAll from "@/hooks/useSelectAll";

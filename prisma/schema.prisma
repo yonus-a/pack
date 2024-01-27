@@ -8,16 +8,18 @@ datasource db {
 }
 
 model user {
-  id          String      @id
-  firstname   String
-  lastname    String
-  phone       String
-  permission  String
-  branchId    Int?
-  deleted     Int?        @default(0)
-  order       order[]
-  branch      branch?     @relation(fields: [branchId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_user_branch")
-  permissions permissions @relation(fields: [permission], references: [id], onUpdate: Restrict, map: "FK_user_permission")
+  id            String          @id
+  firstname     String
+  lastname      String
+  phone         String
+  permission    String
+  branchId      Int?
+  deleted       Int?            @default(0)
+  order         order[]
+  order_archive order_archive[]
+  branch        branch?         @relation(fields: [branchId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_user_branch")
+  permissions   permissions     @relation(fields: [permission], references: [id], onUpdate: Restrict, map: "FK_user_permission")
+  user_archive  user_archive[]
 
   @@index([branchId], map: "FK_user_branch")
   @@index([permission], map: "FK_user_permission")
@@ -29,40 +31,49 @@ model otp {
 }
 
 model branch {
-  id                            Int      @id @default(autoincrement())
+  id                            Int              @id @default(autoincrement())
   name                          String
   province                      String
   city                          String
   address                       String
   distance_to_central_warehouse String
   distance_to_factory           String
-  deleted                       Int?     @default(0)
+  deleted                       Int?             @default(0)
+  branch_archive                branch_archive[]
   budget                        budget[]
+  budget_archive                budget_archive[]
   order                         order[]
+  order_archive                 order_archive[]
   user                          user[]
+  user_archive                  user_archive[]
 }
 
 model permissions {
-  id      String @id
-  name    String
-  deleted Int?
-  user    user[]
+  id           String         @id
+  name         String
+  deleted      Int?
+  user         user[]
+  user_archive user_archive[]
 }
 
 model product {
-  id               String           @id
-  name             String
-  categoryId       Int
-  unitId           Int
-  typeId           Int
-  weight           String
-  deleted          Int?             @default(0)
-  budget           budget[]
-  order_item       order_item[]
-  product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
-  product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
-  product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
-  product_stock    product_stock[]
+  id                    String                  @id
+  name                  String
+  categoryId            Int
+  unitId                Int
+  typeId                Int
+  weight                String
+  deleted               Int?                    @default(0)
+  budget                budget[]
+  budget_archive        budget_archive[]
+  order_item            order_item[]
+  order_item_archive    order_item_archive[]
+  product_category      product_category        @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
+  product_type          product_type            @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_type")
+  product_unit          product_unit            @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_unit")
+  product_archive       product_archive[]
+  product_stock         product_stock[]
+  product_stock_archive product_stock_archive[]
 
   @@index([categoryId], map: "FK_product_category")
   @@index([typeId], map: "FK_product_type")
@@ -70,36 +81,42 @@ model product {
 }
 
 model product_category {
-  id      Int       @id @default(autoincrement())
-  name    String
-  deleted Int?      @default(0)
-  product product[]
+  id                       Int                        @id @default(autoincrement())
+  name                     String
+  deleted                  Int?                       @default(0)
+  product                  product[]
+  product_archive          product_archive[]
+  product_category_archive product_category_archive[]
 }
 
 model product_type {
-  id      Int       @id @default(autoincrement())
-  name    String
-  deleted Int?      @default(0)
-  product product[]
+  id              Int               @id @default(autoincrement())
+  name            String
+  deleted         Int?              @default(0)
+  product         product[]
+  product_archive product_archive[]
 }
 
 model product_unit {
-  id      Int       @id @default(autoincrement())
-  name    String
-  unit    Int
-  deleted Int?      @default(0)
-  product product[]
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  unit                 Int
+  deleted              Int?                   @default(0)
+  product              product[]
+  product_archive      product_archive[]
+  product_unit_archive product_unit_archive[]
 }
 
 model notification {
-  id        Int      @id @default(autoincrement())
-  title     String
-  msg       String
-  private   Int      @default(0)
-  createdAt DateTime @db.DateTime(0)
-  seen      Int      @default(0)
-  sendSms   Int      @default(0)
-  deleted   Int      @default(0)
+  id                   Int                    @id @default(autoincrement())
+  title                String
+  msg                  String
+  private              Int                    @default(0)
+  createdAt            DateTime               @db.DateTime(0)
+  seen                 Int                    @default(0)
+  sendSms              Int                    @default(0)
+  deleted              Int                    @default(0)
+  notification_archive notification_archive[]
 }
 
 model budget {
@@ -130,22 +147,25 @@ model budget {
 }
 
 model order {
-  id           String       @id
-  total_orders Int
-  total_weight Int
-  total_stock  Int
-  statusId     Int          @default(1)
-  createdAt    DateTime     @db.DateTime(0)
-  updatedAt    DateTime     @default(now()) @db.DateTime(0)
-  deleted      Int?         @default(0)
-  userId       String
-  branchId     Int
-  seen         Int          @default(0)
-  driver       driver[]
-  branch       branch       @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_order_branch")
-  order_status order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
-  user         user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
-  order_item   order_item[]
+  id                 String               @id
+  total_orders       Int
+  total_weight       Int
+  total_stock        Int
+  statusId           Int                  @default(1)
+  createdAt          DateTime             @db.DateTime(0)
+  updatedAt          DateTime             @default(now()) @db.DateTime(0)
+  deleted            Int?                 @default(0)
+  userId             String
+  branchId           Int
+  seen               Int                  @default(0)
+  driver             driver[]
+  driver_archive     driver_archive[]
+  branch             branch               @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_order_branch")
+  order_status       order_status         @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_status")
+  user               user                 @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_user")
+  order_archive      order_archive[]
+  order_item         order_item[]
+  order_item_archive order_item_archive[]
 
   @@index([branchId], map: "FK_order_branch")
   @@index([statusId], map: "FK_order_status")
@@ -153,29 +173,31 @@ model order {
 }
 
 model order_status {
-  id      Int     @id @default(autoincrement())
-  title   String
-  deleted Int?    @default(0)
-  order   order[]
+  id            Int             @id @default(autoincrement())
+  title         String
+  deleted       Int?            @default(0)
+  order         order[]
+  order_archive order_archive[]
 }
 
 model order_item {
-  id            Int      @id @default(autoincrement())
-  productId     String
-  monthlyBudget Int
-  dailyBudget   Float    @db.Float
-  unit          Int
-  weight        String
-  stock         Int
-  totalWeight   String
-  number        Int
-  factor        Int
-  deleted       Int?     @default(0)
-  orderId       String
-  createdAt     DateTime @db.DateTime(0)
-  updatedAt     DateTime @default(now()) @db.DateTime(0)
-  order         order    @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_orderItem_order")
-  product       product  @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_orderItem_product")
+  id                 Int                  @id @default(autoincrement())
+  productId          String
+  monthlyBudget      Int
+  dailyBudget        Float                @db.Float
+  unit               Int
+  weight             String
+  stock              Int
+  totalWeight        String
+  number             Int
+  factor             Int
+  deleted            Int?                 @default(0)
+  orderId            String
+  createdAt          DateTime             @db.DateTime(0)
+  updatedAt          DateTime             @default(now()) @db.DateTime(0)
+  order              order                @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_orderItem_order")
+  product            product              @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_orderItem_product")
+  order_item_archive order_item_archive[]
 
   @@index([orderId], map: "FK_orderItem_order")
   @@index([productId], map: "FK_orderItem_product")
@@ -192,16 +214,78 @@ model product_stock {
 }
 
 model truck {
-  id        Int      @id @default(autoincrement())
-  name      String
-  tonnage   Float    @db.Float
-  createdAt DateTime @default(now()) @db.DateTime(0)
-  updatedAt DateTime @default(now()) @db.DateTime(0)
-  driver    driver[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  tonnage        Float            @db.Float
+  createdAt      DateTime         @default(now()) @db.DateTime(0)
+  updatedAt      DateTime         @default(now()) @db.DateTime(0)
+  driver         driver[]
+  driver_archive driver_archive[]
+  truck_archive  truck_archive[]
 }
 
 model driver {
+  id             Int              @id @default(autoincrement())
+  name           String
+  phone          String
+  numberplate    String
+  truckId        Int
+  orderId        String
+  createdAt      DateTime         @default(now()) @db.DateTime(0)
+  updatedAt      DateTime         @default(now()) @db.DateTime(0)
+  order          order            @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_driver_order")
+  truck          truck            @relation(fields: [truckId], references: [id], onUpdate: Restrict, map: "FK_driver_truck")
+  driver_archive driver_archive[]
+
+  @@index([orderId], map: "FK_driver_order")
+  @@index([truckId], map: "FK_driver_truck")
+}
+
+model branch_archive {
+  id                            Int    @id @default(autoincrement())
+  referId                       Int
+  name                          String
+  province                      String
+  city                          String
+  address                       String
+  distance_to_central_warehouse String
+  distance_to_factory           String
+  deleted                       Int?   @default(0)
+  branch                        branch @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_branch")
+
+  @@index([referId], map: "FK_archive_branch")
+}
+
+model budget_archive {
+  id        Int       @id @default(autoincrement())
+  branchId  Int
+  productId String
+  date      DateTime  @db.Date
+  year      Int
+  month1    Int
+  month2    Int
+  month3    Int
+  month4    Int
+  month5    Int
+  month6    Int
+  month7    Int
+  month8    Int
+  month9    Int
+  month10   Int
+  month11   Int
+  month12   Int
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  deleted   Int?      @default(0)
+  branch    branch    @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_budget_archive_branch")
+  product   product   @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_budget_archive_product")
+
+  @@index([branchId], map: "FK_budget_branch")
+  @@index([productId], map: "FK_budget_product")
+}
+
+model driver_archive {
   id          Int      @id @default(autoincrement())
+  referId     Int
   name        String
   phone       String
   numberplate String
@@ -209,9 +293,157 @@ model driver {
   orderId     String
   createdAt   DateTime @default(now()) @db.DateTime(0)
   updatedAt   DateTime @default(now()) @db.DateTime(0)
-  order       order    @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_driver_order")
-  truck       truck    @relation(fields: [truckId], references: [id], onUpdate: Restrict, map: "FK_driver_truck")
+  driver      driver   @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_driver")
+  order       order    @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_driver_archive_order")
+  truck       truck    @relation(fields: [truckId], references: [id], onUpdate: Restrict, map: "FK_driver_archive_truck")
 
   @@index([orderId], map: "FK_driver_order")
   @@index([truckId], map: "FK_driver_truck")
+  @@index([referId], map: "FK_archive_driver")
+}
+
+model notification_archive {
+  id           Int          @id @default(autoincrement())
+  referId      Int
+  title        String
+  msg          String
+  private      Int          @default(0)
+  createdAt    DateTime     @db.DateTime(0)
+  seen         Int          @default(0)
+  sendSms      Int          @default(0)
+  deleted      Int          @default(0)
+  notification notification @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_notification")
+
+  @@index([referId], map: "FK_archive_notification")
+}
+
+model order_archive {
+  id           Int          @id @default(autoincrement())
+  referId      String
+  total_orders Int
+  total_weight Int
+  total_stock  Int
+  statusId     Int          @default(1)
+  createdAt    DateTime     @default(now()) @db.DateTime(0)
+  updatedAt    DateTime     @default(now()) @db.DateTime(0)
+  deleted      Int?         @default(0)
+  userId       String
+  branchId     Int
+  seen         Int          @default(0)
+  order        order        @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_order")
+  branch       branch       @relation(fields: [branchId], references: [id], onUpdate: Restrict, map: "FK_order_archive_branch")
+  order_status order_status @relation(fields: [statusId], references: [id], onUpdate: Restrict, map: "FK_order_archive_status")
+  user         user         @relation(fields: [userId], references: [id], onUpdate: Restrict, map: "FK_order_archive_user")
+
+  @@index([branchId], map: "FK_order_branch")
+  @@index([statusId], map: "FK_order_status")
+  @@index([userId], map: "FK_order_user")
+  @@index([referId], map: "FK_archive_order")
+}
+
+model order_item_archive {
+  id            Int        @id @default(autoincrement())
+  referId       Int
+  productId     String
+  monthlyBudget Int
+  dailyBudget   Float      @db.Float
+  unit          Int
+  weight        String
+  stock         Int
+  totalWeight   String
+  number        Int
+  factor        Int
+  deleted       Int?       @default(0)
+  orderId       String
+  createdAt     DateTime   @default(now()) @db.DateTime(0)
+  updatedAt     DateTime   @default(now()) @db.DateTime(0)
+  order_item    order_item @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_orderItem")
+  order         order      @relation(fields: [orderId], references: [id], onUpdate: Restrict, map: "FK_order_item_archive_order")
+  product       product    @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_order_item_archive_product")
+
+  @@index([orderId], map: "FK_orderItem_order")
+  @@index([productId], map: "FK_orderItem_product")
+  @@index([referId], map: "FK_archive_orderItem")
+}
+
+model product_archive {
+  id               Int              @id @default(autoincrement())
+  referId          String
+  name             String
+  categoryId       Int
+  unitId           Int
+  typeId           Int
+  weight           String
+  deleted          Int?             @default(0)
+  product          product          @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_product")
+  product_category product_category @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_archive_category")
+  product_type     product_type     @relation(fields: [typeId], references: [id], onUpdate: Restrict, map: "FK_product_archive_type")
+  product_unit     product_unit     @relation(fields: [unitId], references: [id], onUpdate: Restrict, map: "FK_product_archive_unit")
+
+  @@index([categoryId], map: "FK_product_category")
+  @@index([typeId], map: "FK_product_type")
+  @@index([unitId], map: "FK_product_unit")
+  @@index([referId], map: "FK_archive_product")
+}
+
+model product_category_archive {
+  id               Int              @id @default(autoincrement())
+  referId          Int
+  name             String
+  deleted          Int?             @default(0)
+  product_category product_category @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_productCategory")
+
+  @@index([referId], map: "FK_archive_productCategory")
+}
+
+model product_stock_archive {
+  id        Int     @id @default(autoincrement())
+  referId   Int
+  amount    String
+  deleted   Int?    @default(0)
+  productId String
+  product   product @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_stock_archive_prodcut")
+
+  @@index([productId], map: "FK_stock_prodcut")
+}
+
+model product_unit_archive {
+  id           Int          @id @default(autoincrement())
+  referId      Int
+  name         String
+  unit         Int
+  deleted      Int?         @default(0)
+  product_unit product_unit @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_unit")
+
+  @@index([referId], map: "FK_archive_unit")
+}
+
+model truck_archive {
+  id        Int      @id @default(autoincrement())
+  referId   Int
+  name      String
+  tonnage   Float    @db.Float
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @default(now()) @db.DateTime(0)
+  truck     truck    @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_archive_truck")
+
+  @@index([referId], map: "FK_archive_truck")
+}
+
+model user_archive {
+  id          Int         @id @default(autoincrement())
+  referId     String
+  firstname   String
+  lastname    String
+  phone       String
+  permission  String
+  branchId    Int?
+  deleted     Int?        @default(0)
+  user        user        @relation(fields: [referId], references: [id], onUpdate: Restrict, map: "FK_userArchive_user")
+  branch      branch?     @relation(fields: [branchId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "FK_user_archive_branch")
+  permissions permissions @relation(fields: [permission], references: [id], onUpdate: Restrict, map: "FK_user_archive_permission")
+
+  @@index([branchId], map: "FK_user_branch")
+  @@index([permission], map: "FK_user_permission")
+  @@index([referId], map: "FK_userArchive_user")
 }

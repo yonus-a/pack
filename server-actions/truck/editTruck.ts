@@ -2,9 +2,13 @@
 
 import prisma from "@/lib/prisma";
 import getDate from "../general/getDate";
+import addTruckToArchive from "./addTruckToArchive";
 
 export default async function editTruck(id: number, data: any) {
   const date = await getDate();
+
+  // archive current truck
+  await addTruckToArchive(id);
 
   try {
     return await prisma.truck.update({

@@ -3,7 +3,7 @@ import CheckOrderClient from "@/app/components/order/check-order-client";
 import getOrderById from "@/server-actions/order/getOrderById";
 import addOrderSeen from "@/server-actions/order/addOrderSeen";
 import getTrucks from "@/server-actions/truck/getTrucks";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function CheckOrder({ params, searchParams }: any) {

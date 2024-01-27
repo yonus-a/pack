@@ -1,7 +1,7 @@
 import getProductCategories from "@/server-actions/product/getProductCategories";
 import EditOrderClient from "@/app/components/order/edit-order-client";
 import getOrderById from "@/server-actions/order/getOrderById";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function EditOrder({ params, searchParams }: any) {

@@ -1,12 +1,16 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import addOrderItemToArchive from "./addOrderItemToArchve";
 import getDate from "@/server-actions/general/getDate";
+import prisma from "@/lib/prisma";
 
 export default async function updateFactorWithCheck(data: any) {
-  const date = await getDate();
-
   try {
+    const date = await getDate();
+
+    // archive current order item
+    await addOrderItemToArchive(data.id);
+
     const isSeen = await prisma.order.findFirst({
       where: {
         seen: 1,
@@ -25,8 +29,8 @@ export default async function updateFactorWithCheck(data: any) {
         id: +data.id,
       },
       data: {
-        factor: data.factor,
         totalWeight: `${data.totalWeight}`,
+        factor: data.factor,
         number: data.number,
         updatedAt: date,
       },

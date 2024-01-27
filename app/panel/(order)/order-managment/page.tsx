@@ -3,7 +3,7 @@ import NextTablePagination from "@/app/components/general/next-table-pagination"
 import filterOrders from "@/server-actions/order/filterOrders";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import getDate from "@/server-actions/general/getDate";
 import { notFound } from "next/navigation";
 import "./styles.scss";

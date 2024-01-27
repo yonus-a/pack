@@ -1,4 +1,4 @@
-import generateOTP from "@/server-actions/generateOTP";
+import generateOTP from "@/server-actions/auth/generateOTP";
 import { useState } from "react";
 import "./styles.scss";
 

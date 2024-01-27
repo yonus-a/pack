@@ -1,9 +1,13 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import addOrderToArchive from "./addOrderToArchve";
 
 export default async function rejectOrder(id: string) {
   try {
+    // archive current order
+    await addOrderToArchive(id);
+    
     return await prisma.order.update({
       where: {
         id,

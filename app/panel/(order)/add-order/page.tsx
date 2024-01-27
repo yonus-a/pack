@@ -1,12 +1,12 @@
 import getAllProductsBaseFilter from "@/server-actions/product/getAllProductsBaseFilter";
 import getProductCategories from "@/server-actions/product/getProductCategories";
 import AddOrderClient from "@/app/components/order/add-order-client";
-import { isRegister } from "@/server-actions/permissions";
+import { isRegister } from "@/server-actions/permission/permissions";
+import getBranches from "@/server-actions/branch/getBranches";
+import getUserById from "@/server-actions/user/getUserById";
 import Container from "@/app/components/general/container";
 import getUserId from "@/server-actions/general/getUserId";
-import getUserById from "@/server-actions/getUserById";
 import getDate from "@/server-actions/general/getDate";
-import getBranches from "@/server-actions/getBranches";
 import { notFound } from "next/navigation";
 import "./styles.scss";
 

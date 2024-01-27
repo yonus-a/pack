@@ -2,8 +2,8 @@ import UsersManagmentClient from "@/app/components/user/user-managment-client";
 import NextTablePagination from "@/app/components/general/next-table-pagination";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
-import filterUsers from "@/server-actions/filterUsers";
-import { isAdmin } from "@/server-actions/permissions";
+import filterUsers from "@/server-actions/user/filterUsers";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 
 export default async function UsersManagment({ searchParams }: any) {

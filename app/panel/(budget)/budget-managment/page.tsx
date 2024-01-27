@@ -1,7 +1,7 @@
 import BudgetManagmentClient from "@/app/components/budget/budget-managment-client";
 import AddLinkBtn from "@/app/components/general/add-link-btn";
 import Container from "@/app/components/general/container";
-import { isAdmin } from "@/server-actions/permissions";
+import { isAdmin } from "@/server-actions/permission/permissions";
 import getBranches from "@/server-actions/getBranches";
 import { notFound } from "next/navigation";
 

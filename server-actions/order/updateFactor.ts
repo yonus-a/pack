@@ -1,12 +1,16 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import addOrderItemToArchive from "./addOrderItemToArchve";
 import getDate from "@/server-actions/general/getDate";
+import prisma from "@/lib/prisma";
 
 export default async function updateFactor(data: any) {
-  const date = await getDate();
-
   try {
+    const date = await getDate();
+
+    // archive current order item
+    await addOrderItemToArchive(data.id);
+
     return await prisma.order_item.update({
       where: {
         id: +data.id,
