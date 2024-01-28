@@ -1,12 +1,15 @@
 import getAllProductsBaseFilter from "@/server-actions/product/getAllProductsBaseFilter";
 import getProductCategories from "@/server-actions/product/getProductCategories";
 import AddStockClient from "@/app/components/stock/add-stock-client";
-import Container from "@/app/components/general/container";
 import { isAdmin } from "@/server-actions/permission/permissions";
+import Container from "@/app/components/general/container";
+import updateStock from "@/updaterDB/updateStocks";
 import { notFound } from "next/navigation";
-import "../../index";
 
 export default async function AddStock({ searchParams }: any) {
+  // update stock from api
+  await updateStock();
+
   // check permission
   const admin = await isAdmin();
 

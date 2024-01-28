@@ -447,3 +447,13 @@ model user_archive {
   @@index([permission], map: "FK_user_permission")
   @@index([referId], map: "FK_userArchive_user")
 }
+
+model limit_budget {
+  id        Int       @id @default(autoincrement())
+  productId String
+  branchId  Int
+  limit     Int
+  from      DateTime? @db.DateTime(0)
+  to        DateTime? @db.DateTime(0)
+  permement Int       @default(0)
+}

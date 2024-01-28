@@ -57,8 +57,14 @@ export const links = [
   },
   {
     id: 10,
-    name: "مدریت کامیون ها",
+    name: "مدیریت کامیون ها",
     href: "/panel/trucks-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 11,
+    name: "اعمال محدودیت",
+    href: "/panel/limit-managment",
     permissions: [ADMIN_KEY],
   },
 ];

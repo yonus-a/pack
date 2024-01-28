@@ -1,7 +1,7 @@
 import AddUserClient from "@/app/components/user/add-user-client";
-import getPermissions from "@/server-actions/getPermissions";
+import getPermissions from "@/server-actions/permission/getPermissions";
 import Container from "@/app/components/general/container";
-import getBranches from "@/server-actions/getBranches";
+import getBranches from "@/server-actions/branch/getBranches";
 import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 

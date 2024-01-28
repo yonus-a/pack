@@ -124,7 +124,7 @@ export default function AddOrderForm({ products, branch, date }: Props) {
             const budget = item.budget[0] || {};
             const monthlyBudget = budget[`month${month}`] || 0;
             const dailyBudget = Math.floor(monthlyBudget / 24);
-            const stock = item.product_stock[0].amount;
+            const stock = item.product_stock[0]?.amount;
 
             // add more data to item
             item.monthlyBudget = monthlyBudget;

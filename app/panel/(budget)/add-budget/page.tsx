@@ -1,6 +1,6 @@
 import AddBudgetClient from "@/app/components/budget/add-budget-client";
 import Container from "@/app/components/general/container";
-import getBranches from "@/server-actions/getBranches";
+import getBranches from "@/server-actions/branch/getBranches";
 import { isAdmin } from "@/server-actions/permission/permissions";
 import { notFound } from "next/navigation";
 

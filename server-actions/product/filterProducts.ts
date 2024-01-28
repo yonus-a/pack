@@ -1,7 +1,7 @@
 "use server";
 
-import prisma from "@/lib/prisma";
 import filterProductsBaseSearch from "@/utils/product/filterProductsBaseSearch";
+import prisma from "@/lib/prisma";
 
 export default async function filterProducts({
   searchParams,

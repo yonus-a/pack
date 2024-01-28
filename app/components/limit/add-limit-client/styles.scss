@@ -1,0 +1,16 @@
+@use "@/styles/mixins.scss" as *;
+
+.add-limit-client {
+  form {
+    @include grid-gap(1em);
+  }
+
+  .date-wrapper {
+    @include flex-align-center;
+    gap: 1em;
+
+    .datepicker {
+      flex: 1;
+    }
+  }
+}

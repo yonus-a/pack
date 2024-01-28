@@ -11,14 +11,15 @@ interface Props {
 export default function NextDatePicker({
   defaultValue,
   handleChange,
-  views = {},
+  views,
 }: Props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFnsJalali}>
       <DatePicker
         onChange={handleChange}
-        views={views}
         defaultValue={defaultValue}
+        {...(views ? { views: views } : {})}
+        className="datepicker"
       />
     </LocalizationProvider>
   );
