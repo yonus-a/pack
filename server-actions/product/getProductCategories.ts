@@ -5,8 +5,27 @@ import prisma from "@/lib/prisma";
 export default async function getProductCategories() {
   try {
     return await prisma.product_category.findMany({
-      orderBy: {
-        id: "desc",
+      where: {
+        parentId: null,
+      },
+      include: {
+        other_product_category: {
+          include: {
+            other_product_category: {
+              include: {
+                other_product_category: {
+                  include: {
+                    other_product_category: {
+                      include: {
+                        other_product_category: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
   } catch (e) {

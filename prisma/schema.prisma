@@ -89,7 +89,6 @@ model product_category {
   id                       Int                        @id @default(autoincrement())
   name                     String
   parentId                 Int?
-  hasMenu                  Int
   deleted                  Int?                       @default(0)
   product                  product[]
   product_archive          product_archive[]
