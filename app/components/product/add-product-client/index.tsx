@@ -31,6 +31,7 @@ export default function AddProductClient({ categories, units, types }: Props) {
   const [alert, setAlert] = useState<any>(null);
   const router = useRouter();
 
+  console.log(categories);
 
   const {
     register,

@@ -1,6 +1,7 @@
 "use client";
 
-import addLimitBudget from "@/server-actions/limit-budget/addLimitBudget";
+import deleteProductLimitBudget from "@/server-actions/limit-budget/deleteProductLimitBudget";
+import upsertLimitBudget from "@/server-actions/limit-budget/upsertLimitBudget";
 import selectOptionsGenerator from "@/utils/selectOptionsGenerator";
 import NextDatePicker from "../../general/next-date-picker";
 import NextMuiSelect from "../../general/next-mui-select";
@@ -17,21 +18,27 @@ import "./styles.scss";
 interface Props {
   productId: any;
   branches: any;
-  limit: any;
+  product: any;
 }
 
-export default function AddLimitCLient({ productId, branches, limit }: Props) {
-  const brancheItems = selectOptionsGenerator(branches);
+export default function AddLimitCLient({
+  productId,
+  branches,
+  product,
+}: Props) {
+  const limitBudget = product.limit_budget[0] || {};
+
+  const [from, setFrom] = useState<any>(limitBudget.from);
+  const [to, setTo] = useState<any>(limitBudget.to);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
-  const [from, setFrom] = useState<any>(null);
-  const [to, setTo] = useState<any>(null);
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data: any) => {
@@ -49,7 +56,7 @@ export default function AddLimitCLient({ productId, branches, limit }: Props) {
         }
       }
 
-      await addLimitBudget({ ...data, from, to, productId });
+      await upsertLimitBudget(limitBudget.id, { ...data, from, to, productId });
 
       setAlert({
         type: "success",
@@ -57,8 +64,8 @@ export default function AddLimitCLient({ productId, branches, limit }: Props) {
       });
 
       setTimeout(() => {
-        // router.refresh();
-        // router.push("/panel/limit-managment");
+        router.refresh();
+        router.push("/panel/limit-managment");
       }, 1850);
     } catch (e) {
       setAlert({
@@ -73,9 +80,21 @@ export default function AddLimitCLient({ productId, branches, limit }: Props) {
     }
   };
 
+  const handleDelete = async (id: any) => {
+    try {
+      await deleteProductLimitBudget(id);
+      router.refresh();
+    } catch (e) {}
+  };
+
+  const brancheItems = branches.map(({ id, name }: any) => ({
+    label: name,
+    value: JSON.stringify([{ id }]),
+  }));
+
   brancheItems.unshift({
-    label: "هیچکدام",
-    value: null,
+    label: "همه شعبه ها",
+    value: JSON.stringify(branches.map(({ id }: any) => ({ id }))),
   });
 
   return (
@@ -83,16 +102,18 @@ export default function AddLimitCLient({ productId, branches, limit }: Props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <EqualizeItems>
           <NextMuiSelect
+            defaultValue={JSON.stringify(limitBudget.branch)}
             items={brancheItems}
             register={register}
             label="برای شعبه"
             errors={errors}
-            name="branchId"
+            name="branch"
             required
           />
           <NextTextFild
-            register={register}
+            defaultValue={limitBudget.limit}
             label="محدودیت بودجه"
+            register={register}
             errors={errors}
             type="number"
             name="limit"
@@ -102,14 +123,26 @@ export default function AddLimitCLient({ productId, branches, limit }: Props) {
         <EqualizeItems>
           <div className="date-wrapper">
             از
-            <NextDatePicker handleChange={setFrom} />
+            <NextDatePicker defaultValue={from} handleChange={setFrom} />
           </div>
-          <NextDatePicker handleChange={setTo} />
+          <NextDatePicker handleChange={setTo} defaultValue={to} />
         </EqualizeItems>
-        <NextCheckbox register={register} name="permement" label="دائمی" />
+        <NextCheckbox
+          defaultChecked={limitBudget.permement}
+          register={register}
+          name="permement"
+          label="دائمی"
+        />
         <PriamryBtn type="submit" disabled={loading}>
           {loading ? "در حال پردازش..." : "ثبت"}
         </PriamryBtn>
+        <button
+          className="delete-btn btn"
+          onClick={() => handleDelete(limitBudget.id)}
+          type="button"
+        >
+          حذف
+        </button>
       </form>
       {alert && <Alert {...alert} />}
     </section>

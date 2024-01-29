@@ -67,4 +67,16 @@ export const links = [
     href: "/panel/limit-managment",
     permissions: [ADMIN_KEY],
   },
+  {
+    id: 12,
+    name: "مدریت کارخانه",
+    href: "/panel/limit-managment",
+    permissions: [ADMIN_KEY],
+  },
+  {
+    id: 13,
+    name: "مدریت انبار",
+    href: "/panel/limit-managment",
+    permissions: [ADMIN_KEY],
+  },
 ];

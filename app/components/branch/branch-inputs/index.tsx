@@ -1,8 +1,15 @@
+"use client";
+
 import provincesSelectOption from "@/utils/provincesSelectOption";
 import NextMuiSelect from "../../general/next-mui-select";
 import EqualizeItems from "../../general/equalize-items";
 import NextTextFild from "../../general/next-text-fild";
 import "./styles.scss";
+
+import NeshanMap, {
+  NeshanMapRef,
+} from "@neshan-maps-platform/react-openlayers";
+import { Map } from "@neshan-maps-platform/ol";
 
 interface Props {
   defaultValues?: any;
@@ -54,7 +61,8 @@ export default function BranchInputs({
         required={requireFilds?.address}
         defaultValue={defaultValues?.address}
       />
-      <EqualizeItems>
+      <NeshanMap mapKey="web.f1bd902deb1a4bb08f107c8f5c4968a2"></NeshanMap>
+      {/* <EqualizeItems>
         <NextTextFild
           register={register}
           name="distanceToCentralWarehouse"
@@ -73,7 +81,7 @@ export default function BranchInputs({
           required={requireFilds?.distanceToFactory}
           defaultValue={defaultValues?.distance_to_factory}
         />
-      </EqualizeItems>
+      </EqualizeItems> */}
     </>
   );
 }

@@ -5,6 +5,7 @@ import DialogContainer from "../../general/dialog-container";
 import NextTextFild from "../../general/next-text-fild";
 import DialogLayer from "../../general/dialog-layer";
 import PriamryBtn from "../../general/primary-btn";
+import NextTreeView from "../../general/treeview";
 import DialogCta from "../../general/dialog-cta";
 import { useRouter } from "next/navigation";
 import Dialog from "../../general/dialog";
@@ -66,12 +67,13 @@ export default function AddProductCategory() {
         <DialogLayer>
           <DialogContainer>
             <div className="form">
-              <NextTextFild
+              {/* <NextTextFild
                 onChange={handleChange}
                 errors={errors}
                 name="name"
                 label="نام"
-              />
+              /> */}
+              {/* <NextTreeView /> */}
               <PriamryBtn type="button" onClick={handleAdd} disabled={disabled}>
                 {loading ? "در حال پردازش..." : "ثبت"}
               </PriamryBtn>

@@ -18,10 +18,10 @@ interface Props {
 }
 
 export default function AddOrderForm({ products, branch, date }: Props) {
+  const [disabled, setDisabled] = useState<any>(false);
   const [formState, setFormState] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<any>(null);
-  const [disabled, setDisabled] = useState<any>(false);
   const month = getMonth(date) + 1;
   const userId = useUserId();
   const router = useRouter();
@@ -84,7 +84,7 @@ export default function AddOrderForm({ products, branch, date }: Props) {
       });
 
       router.refresh();
-      router.push("/panel/show-orders");
+      router.push("/panel/order-managment");
     } catch (e) {
       setAlert({
         type: "error",

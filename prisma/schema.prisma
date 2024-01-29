@@ -38,7 +38,9 @@ model branch {
   address                       String
   distance_to_central_warehouse String
   distance_to_factory           String
+  limitId                       Int?
   deleted                       Int?             @default(0)
+  limit_budget                  limit_budget?    @relation(fields: [limitId], references: [id], onUpdate: SetNull, map: "FK_branch_limit")
   branch_archive                branch_archive[]
   budget                        budget[]
   budget_archive                budget_archive[]
@@ -46,6 +48,8 @@ model branch {
   order_archive                 order_archive[]
   user                          user[]
   user_archive                  user_archive[]
+
+  @@index([limitId], map: "FK_branch_limit")
 }
 
 model permissions {
@@ -66,6 +70,7 @@ model product {
   deleted               Int?                    @default(0)
   budget                budget[]
   budget_archive        budget_archive[]
+  limit_budget          limit_budget[]
   order_item            order_item[]
   order_item_archive    order_item_archive[]
   product_category      product_category        @relation(fields: [categoryId], references: [id], onUpdate: Restrict, map: "FK_product_category")
@@ -83,10 +88,16 @@ model product {
 model product_category {
   id                       Int                        @id @default(autoincrement())
   name                     String
+  parentId                 Int?
+  hasMenu                  Int
   deleted                  Int?                       @default(0)
   product                  product[]
   product_archive          product_archive[]
+  product_category         product_category?          @relation("product_categoryToproduct_category", fields: [parentId], references: [id], onUpdate: SetNull, map: "FK_item_parent")
+  other_product_category   product_category[]         @relation("product_categoryToproduct_category")
   product_category_archive product_category_archive[]
+
+  @@index([parentId], map: "FK_item_parent")
 }
 
 model product_type {
@@ -451,9 +462,26 @@ model user_archive {
 model limit_budget {
   id        Int       @id @default(autoincrement())
   productId String
-  branchId  Int
   limit     Int
   from      DateTime? @db.DateTime(0)
   to        DateTime? @db.DateTime(0)
   permement Int       @default(0)
+  branch    branch[]
+  product   product   @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "FK_limit_product")
+
+  @@index([productId], map: "FK_limit_product")
+}
+
+model factory {
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  String
+  longitude String
+}
+
+model warehouse {
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  String
+  longitude String
 }

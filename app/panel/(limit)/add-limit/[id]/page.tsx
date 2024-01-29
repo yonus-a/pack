@@ -1,3 +1,4 @@
+import getProductLimitBudget from "@/server-actions/limit-budget/getProductLimitBudget";
 import AddLimitCLient from "@/app/components/limit/add-limit-client";
 import { isAdmin } from "@/server-actions/permission/permissions";
 import getBranches from "@/server-actions/branch/getBranches";
@@ -15,11 +16,15 @@ export default async function addLimitBudget({ params }: any) {
 
   const productId = params.id;
   const branches = await getBranches();
-  const limit = await getProductLimitBudget(productId);
+  const products = await getProductLimitBudget(productId);
 
   return (
     <Container>
-      <AddLimitCLient branches={branches} productId={productId} limit={limit} />
+      <AddLimitCLient
+        branches={branches}
+        productId={productId}
+        product={products[0]}
+      />
     </Container>
   );
 }

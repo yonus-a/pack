@@ -18,6 +18,7 @@ export default async function AddProduct() {
   const types = await getProductTypes();
   const units = await getProductUnits();
 
+
   return (
     <main>
       <Container>

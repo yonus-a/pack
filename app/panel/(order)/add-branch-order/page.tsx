@@ -24,6 +24,8 @@ export default async function Order({ searchParams }: any) {
   const branches = await getBranches();
   const date = await getDate();
 
+  console.log(categories);
+
   return (
     <Container>
       <AddBranchOrederClient
