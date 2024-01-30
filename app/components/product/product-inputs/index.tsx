@@ -4,6 +4,7 @@ import EqualizeItems from "../../general/equalize-items";
 import AddProductCategory from "../add-product-category";
 import NextTextFild from "../../general/next-text-fild";
 import AddProductUnit from "../add-product-unit";
+import RecursiveSelect from "../recursive-category-select";
 
 interface Props {
   defaultValues?: any;
@@ -73,7 +74,8 @@ export default function ProductInputs({
       </EqualizeItems>
       <EqualizeItems>
         <div className="g1">
-          <NextMuiSelect
+          <RecursiveSelect data={categories} />
+          {/* <NextMuiSelect
             defaultValue={defaultValues.categoryId}
             required={requireFilds.category}
             items={categoriesOption}
@@ -81,8 +83,8 @@ export default function ProductInputs({
             label="دسته بندی"
             name="category"
             errors={errors}
-          />
-          <AddProductCategory />
+          /> */}
+          <AddProductCategory categories={categories} />
         </div>
         <NextMuiSelect
           defaultValue={defaultValues.typeId}

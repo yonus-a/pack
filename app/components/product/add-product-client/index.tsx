@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import Alert from "../../general/alert";
 import { useState } from "react";
 import "./styles.scss";
-import RecursiveComponent from "../recursive-category-select";
 
 interface Props {
   categories: any;
@@ -25,7 +24,6 @@ const requireFilds = {
   name: true,
   id: true,
 };
-
 
 export default function AddProductClient({ categories, units, types }: Props) {
   const [disabled, setDisabled] = useState<any>(false);
@@ -87,7 +85,6 @@ export default function AddProductClient({ categories, units, types }: Props) {
     <section className="add-product-client">
       {alert && <Alert {...alert} />}
       <h2>اضافه کردن محصول</h2>
-      <RecursiveComponent data={categories} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <ProductInputs
           requireFilds={requireFilds}

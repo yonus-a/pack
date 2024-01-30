@@ -1,11 +1,10 @@
 "use client";
 
 import addProductCategory from "@/server-actions/product/addProductCategory";
+import RecursiveCategoryTreeview from "../recursive-category-treeview";
 import DialogContainer from "../../general/dialog-container";
-import NextTextFild from "../../general/next-text-fild";
 import DialogLayer from "../../general/dialog-layer";
 import PriamryBtn from "../../general/primary-btn";
-import NextTreeView from "../../general/treeview";
 import DialogCta from "../../general/dialog-cta";
 import { useRouter } from "next/navigation";
 import Dialog from "../../general/dialog";
@@ -14,7 +13,11 @@ import Icon from "../../general/icon";
 import { useState } from "react";
 import "./styles.scss";
 
-export default function AddProductCategory() {
+interface Props {
+  categories: any;
+}
+
+export default function AddProductCategory({ categories }: Props) {
   const [closeDialog, setCloseDialog] = useState(false);
   const [disabled, setDisabled] = useState<any>(false);
   const [loading, setLoading] = useState(false);
@@ -74,6 +77,7 @@ export default function AddProductCategory() {
                 label="نام"
               /> */}
               {/* <NextTreeView /> */}
+              <RecursiveCategoryTreeview data={categories} />
               <PriamryBtn type="button" onClick={handleAdd} disabled={disabled}>
                 {loading ? "در حال پردازش..." : "ثبت"}
               </PriamryBtn>
