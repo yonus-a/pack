@@ -88,7 +88,7 @@ export default function BudgetInputs({ branches, register, setValue }: Props) {
         <Tbody>
           {product?.map((item: any, idx: number) => {
             return (
-              <Tr key={item?.id}>
+              <Tr key={item.id}>
                 <Td>{idx + 1}</Td>
                 <Td>{item.id}</Td>
                 <Td>{item.name}</Td>
@@ -105,7 +105,7 @@ export default function BudgetInputs({ branches, register, setValue }: Props) {
                 />
                 {/* also create and input array [1, 7, 2, ....] */}
                 {Array.from({ length: 12 }, (_, i) => (
-                  <Td>
+                  <Td key={i}>
                     <TextField
                       key={i}
                       {...register(`budgets.${idx}.months.${i}`)}

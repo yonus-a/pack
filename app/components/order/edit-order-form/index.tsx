@@ -37,7 +37,7 @@ export default function EditOrderForm({ order, handleUpdateFactor }: Props) {
             const isModify = !isEqual(item.createdAt, item.updatedAt);
 
             return (
-              <Tr>
+              <Tr key={item.id}>
                 <Td>{idx + 1}</Td>
                 <Td>{item.id}</Td>
                 <Td>{product?.name}</Td>

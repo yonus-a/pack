@@ -104,7 +104,7 @@ export default function EditBudgetClient({ product }: Props) {
                 />
               </Td>
               {Array.from({ length: 12 }, (_, i) => (
-                <Td>
+                <Td key={i}>
                   <TextField
                     {...register(`month${i + 1}`)}
                     className="budget-input"

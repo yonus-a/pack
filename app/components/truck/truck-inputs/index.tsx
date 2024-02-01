@@ -1,5 +1,3 @@
-import NextMuiSelect from "@/app/components/general/next-mui-select";
-import selectOptionsGenerator from "@/utils/selectOptionsGenerator";
 import NextTextFild from "@/app/components/general/next-text-fild";
 import EqualizeItems from "../../general/equalize-items";
 
@@ -10,7 +8,7 @@ interface Props {
   errors: any;
 }
 
-export default function ({
+export default function UserInputs({
   defaultValues = {},
   requiredFilds,
   register,

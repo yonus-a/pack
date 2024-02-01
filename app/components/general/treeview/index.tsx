@@ -16,17 +16,18 @@ export default function NextTreeView({ items }: Props) {
     >
       {items.map((item: any) => {
         return (
-          <TreeItem nodeId={item.id} label={item.label}>
+          <TreeItem key={item.id} nodeId={item.id} label={item.label}>
             {item.submenu && (
               <>
                 {item.submenu.map((item: any) => {
                   return (
-                    <TreeItem nodeId={item.id} label={item.label}>
+                    <TreeItem key={item.id} nodeId={item.id} label={item.label}>
                       {item.submenu && (
                         <>
                           {item.submenu.map((item: any) => {
                             return (
                               <TreeItem
+                                key={item.id}
                                 nodeId={item.id}
                                 label={item.label}
                               ></TreeItem>

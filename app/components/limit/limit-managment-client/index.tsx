@@ -30,7 +30,11 @@ export default function LimitManagmentClient({ products }: Props) {
         </Thead>
         <Tbody>
           {products.map((item: any, idx: number) => (
-            <Tr className="clickable" onClick={() => handleClick(item.id)}>
+            <Tr
+              key={item.id}
+              className="clickable"
+              onClick={() => handleClick(item.id)}
+            >
               <Td>{idx + 1}</Td>
               <Td>{item.id}</Td>
               <Td>{item.name}</Td>

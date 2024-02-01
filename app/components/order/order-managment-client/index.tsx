@@ -10,7 +10,7 @@ interface Props {
   date: any;
 }
 
-export default function ({ orders, date }: Props) {
+export default function OrderManagmentClient({ orders, date }: Props) {
   const router = useRouter();
 
   const handleClick = (id: number) => {

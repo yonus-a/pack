@@ -37,7 +37,7 @@ export default function TrucksManagmentClient({ trucks }: Props) {
         </Thead>
         <Tbody>
           {trucks.map((item: any) => (
-            <Tr>
+            <Tr key={item.id}>
               <Td>{item.name}</Td>
               <Td>{item.tonnage}</Td>
               <Td>{item.createdAt.toLocaleString()}</Td>

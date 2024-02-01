@@ -10,7 +10,7 @@ export default function ProductCategoriesFilter({ categories }: Props) {
     <div className="product-categories-filter">
       <ul>
         {categories.map((item: any) => (
-          <li>
+          <li key={item.id}>
             <Link className="btn" href={`?category=${item.id}`}>
               {item.name}
             </Link>
